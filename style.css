@@ -155,14 +155,16 @@
 
 .tooltip {
     position: relative;
+    z-index: 99999 !important;
 }
 
 
 .tooltiptext {
+        position: absolute;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.5s;
-
+    z-index: 99999 !important;
     top: 100%;
 
     margin-top: 5px;
@@ -175,8 +177,8 @@
     padding: var(--text-margin) var(--container-margin);
     border-radius: 5px;
 
-    position: absolute;
-    z-index: 9999 !important;
+
+
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
@@ -547,7 +549,7 @@ button.owl-prev:active {
 .banner-foreground {
     display: flex !important;
     position: absolute;
-    z-index: 100;
+    z-index: 10;
     height: 100% !important;
     min-width: 0px !important;
     align-items: stretch !important;
