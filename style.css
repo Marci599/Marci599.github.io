@@ -50,8 +50,8 @@
     --hover-brightness-inverse: brightness(80%);
     --click-brightness-inverse: brightness(60%);
 
-    --dark-hover-brightness-inverse: brightness(80%);
-    --dark-click-brightness-inverse: brightness(60%);
+    --dark-hover-brightness: brightness(80%);
+    --dark-click-brightness: brightness(60%);
 
 
 
