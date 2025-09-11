@@ -852,16 +852,21 @@ button.owl-prev:active {
 .bottombar>div{
     margin: auto;
     max-width: var(--page-width);
-    padding: var(--container-margin);
+    padding: var(--container-small-margin);
     color: var(--outline-color);
-    font-size: small;
+  
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.bottombar>div>*{
+
+      font-size: small !important;
+}
+
 .bottombar>div>a{
-    font-size: medium;
+
     text-wrap: balance;
     padding: var(--container-small-margin);
     max-lines: 2;
