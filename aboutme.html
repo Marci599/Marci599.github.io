@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,17 +10,36 @@
     <script src="media/logic.js"></script>
     <title>Marci599's website</title>
 </head>
+
 <body>
     <div class="webbar">
         <div class="direction-on-size-3">
             <a href="/" class="layout-horizontal toolbar">
                 <img src="media/icons/logo.webp" alt="Logo" id="logo">
                 <h1>Marci599's site</h1>
-            </a>    
+            </a>
             <div class="layout-horizontal tab-layout">
                 <a href="/" class="tab">Home</a>
-                <a href="aboutme" class="tab selected">About me</a>
-                <a href="projects" class="tab">Projects</a>
+                <a href="aboutme" class="tab selected tooltip">About me<span class="tooltiptext">
+                        <ul>
+                            <li>Introduction</li>                   
+                            <li>Work experience</li>
+                            <li>Socials</li>
+                            <li>Favorite games</li>
+                            <li>Favorite series</li>
+                            <li>Books I read</li>
+                        </ul>
+                    </span></a>
+                <a href="projects" class="tab tooltip">Projects<span class="tooltiptext">
+                        <ul>
+                            <li>Short story</li>
+                            <li>Some of my programs</li>
+                            <li>Organizational projects</li>
+                            <li>Student newspaper</li>
+                            <li>Some of my videos</li>
+                            <li>Some graphics I made</li>
+                        </ul>
+                    </span></a>
                 <a href="contact" class="tab">Contact</a>
             </div>
         </div>
@@ -28,7 +48,7 @@
             <img id="icon-sun" src="media/icons/sun.svg">
         </a>
     </div>
-    
+
     <div class="main-scroll-area">
         <div class="main-content" style="margin-top: var(--container-margin);">
             <div class="direction-on-size">
@@ -37,192 +57,322 @@
                     <img src="media/me_base.webp" alt="Me" class="large-image" id="me">
                 </div>
                 <div>
+
                     <h3 class="large include-my-head">Introduction</h3>
-                    <p>Hello! I'm Márton Barnabás Katona, <span id="age"></span> years old. I was born in Hungary and went to elementary school in Budaörs. I'm currently studying in the one and only <a href="https://www.puskas.hu/100/" target="_blank">BMSZC Puskás Tivadar Távközlési és Informatikai Technikum</a>. Meanwhile, my family moved to Graz, Austria, so I am completing high school from a student hostel.</p>
-                    <p>Most of my free time is dedicated to programming since my childhood, but my hobbies also include image editing, graphic design, UI & UX design, video editing, animating and of course playing video games. You can find examples of my work on the <a href="projects">Projects</a> tab. Since my only income is from scholarship, if you are interested you can <a href="https://www.fiverr.com/marci599" target="_blank">commission me on Fiverr</a>.</p>
-                    <p>In the near future, I would like to find a job in an IT company, and in the distant future, my goal is to establish my own company. I know myself as a person who always sets big plans and does everything to make them into reality.</p>
+
+                    <p>Hello! I'm Márton Barnabás Katona, <span id="age"></span> years old. I was born in Hungary and
+                        went to elementary school in Budaörs. I studied in the one and only <a
+                            href="https://www.puskas.hu/100/" target="_blank">BMSZC Puskás Tivadar Távközlési és
+                            Informatikai Technikum</a>, majoring in IT System and Application Administrator. I moved to
+                        Graz, Austria recently.</p>
+                    <p>Most of my free time is dedicated to programming since my childhood, but my hobbies also include
+                        image editing, graphic design, UI & UX design, video editing, animating and of course playing
+                        video games. You can find examples of my work on the <a href="projects">Projects</a> tab. If you
+                        are interested you can <a href="https://www.fiverr.com/marci599" target="_blank">commission me
+                            on Fiverr</a>.</p>
+                    <p>In the near future, I would like to find a job in an IT company, and in the distant future, my
+                        goal is to establish my own company. I know myself as a person who always sets big plans and
+                        does everything to make them into reality.</p>
+   
                     <div class="list">
                         <a href="projects" class="primary">Projects</a>
                         <a href="contact" class="button">Contact</a>
+
                     </div>
                 </div>
-            </div> 
-            <h3>Socials</h3>
+            </div>
+
+            <h3 id="games">Work experience</h3>
+            <div class="direction-on-size">
+                <img src="media/one_logo_600h.webp" alt="One Magyarország logo" class="medium-image">
+                <div>
+                    <h4>One Solutions - Invitech ICT Services Kft. / 2025</h4>
+                    <p>Participated in a dual training program as an IT Support and End-User Management Intern at
+                        One Solutions, based at MOL
+                        Campus (Hungarian Oil and Gas PLC headquarters).</p>
+                    <ul>
+                        <li>Provided 1st level support to users (hardware/software issues, ticketing)</li>
+                        <li>Assisted with workstation setups, network troubleshooting, user onboarding, and mobile
+                            device management</li>
+                        <li>Took part in IT asset lifecycle processes (device handout, return, reinstallation,
+                            inventory, disposal)</li>
+                        <li>Occasionally supported front desk and cashier operations (customer handling, payment
+                            processing)</li>
+                        <li>Gained experience in Windows environment, ticketing systems, and corporate IT workflows</li>
+                        <li>Worked 4 days per week, 8 hours per day alongside studies</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="personal-border">
+                <span>More personal stuff</span>
+            </div>
+                        <h3>Socials</h3>
             <div class="chip-group">
                 <a href="https://www.youtube.com/channel/UCVeXQbfT1D1-Rwcls27QbDA" target="_blank">YouTube (main)</a>
-                <a href="https://www.youtube.com/channel/UCoGvvj66VQtwIF5OfVdt0hQ" target="_blank">YouTube (Hungarian)</a>
+                <a href="https://www.youtube.com/channel/UCoGvvj66VQtwIF5OfVdt0hQ" target="_blank">YouTube
+                    (Hungarian)</a>
                 <a href="https://www.youtube.com/channel/UCAAkJcH5mQLerfRQy4u6Cqg" target="_blank">YouTube (dev)</a>
                 <a href="https://www.tiktok.com/@k_marci599" target="_blank">TikTok</a>
-                <a href="https://dsc.gg/undercave" target="_blank">Discord</a>
                 <a href="https://twitter.com/K_Marci599" target="_blank">X</a>
                 <a href="https://www.threads.net/@k_marci599" target="_blank">Threads</a>
-                <a href="https://wetdry.world/@K_Marci599" target="_blank">Mastodon</a>
+                <a href="https://bsky.app/profile/marci599.bsky.social" target="_blank">Bluesky</a>
                 <a href="https://www.reddit.com/user/Big_Nefariousness269" target="_blank">Reddit</a>
                 <a href="https://github.com/Marci599" target="_blank">GitHub</a>
                 <a href="https://play.google.com/store/apps/dev?id=5632047545523684053" target="_blank">Play Store</a>
                 <a href="https://gamejolt.com/@RalixStudio" target="_blank">Game Jolt</a>
-            </div>  
+                <a href="https://www.linkedin.com/in/marton-barnabas-katona" target="_blank">Linkedin</a>
+            </div>
+            <h3 id="games">Favorite games</h3>
             <div class="align-children-images-to-start align-children-title-images-to-center">
-                <h3 id="games">Favorite games</h3>
-                <a href="https://en.wikipedia.org/wiki/Super_Mario_Galaxy" target="_blank" id="smg"><img src="media/games/smg_logo.webp" alt="Super Mario Galaxy logo"></a>
-    
+
+                <a href="https://en.wikipedia.org/wiki/Super_Mario_Galaxy" target="_blank" id="smg"><img
+                        src="media/games/smg_logo.webp" alt="Super Mario Galaxy logo"></a>
+
                 <div class="direction-on-size">
                     <div>
-                        <p>Not only my favorite game to this day, but it was also the very first serious game I played on the Nintendo Wii. I still have the original console and the disc to this day, but I don't use it anymore, because I can produce much better quality with emulation. But I have it on disc that we paid for so don't sue me!</p>
-                        <p>This is a 3D Mario platformer game and one of the huge differences from any other 3D platformers is that the gravity is almost never only downwards. Either we are on small planets, where gravity constantly pulls us towards the center, or we are on all kinds of other interesting shapes with their own unique gravity. Sometimes there are also separate gravitational fields, where everything might turn upside down and in other places gravity changes to a rhythm, etcetera. Another interesting thing about the game is that at the beginning of the story, we get a special Luma star, which provides a spin attack ability, which can be activated by shaking the Wii remote control. This will keep us up in the air for a few seconds and you can also destroy and break all kinds of things or even change the layout of some of the stages with each shake.</p>
-                        <p>The game also contains many other new and unique things. I wholeheartedly recommend it to those who like 3D platformers. (It can also be really hard in some places)</p>       
+                        <p>Not only my favorite game to this day, but it was also the very first serious game I played
+                            on the Nintendo Wii. I still have the original console and the disc to this day, but I don't
+                            use it anymore, because I can produce much better quality with emulation. But I have it on
+                            disc that we paid for so don't sue me!</p>
+                        <p>This is a 3D Mario platformer game and one of the huge differences from any other 3D
+                            platformers is that the gravity is almost never only downwards. Either we are on small
+                            planets, where gravity constantly pulls us towards the center, or we are on all kinds of
+                            other interesting shapes with their own unique gravity. Sometimes there are also separate
+                            gravitational fields, where everything might turn upside down and in other places gravity
+                            changes to a rhythm, etcetera. Another interesting thing about the game is that at the
+                            beginning of the story, we get a special Luma star, which provides a spin attack ability,
+                            which can be activated by shaking the Wii remote control. This will keep us up in the air
+                            for a few seconds and you can also destroy and break all kinds of things or even change the
+                            layout of some of the stages with each shake.</p>
+                        <p>The game also contains many other new and unique things. I wholeheartedly recommend it to
+                            those who like 3D platformers. (It can also be really hard in some places)</p>
                     </div>
                     <img src="media/games/smg_image.webp" alt="Super Mario Galaxy image">
                 </div>
-            
-    
-                <a href="https://en.wikipedia.org/wiki/Rabbids_Go_Home" target="_blank" id="rgh"><img src="media/games/rgh_logo.webp" alt="Rabbids Go Home logo"></a>   
+
+
+                <a href="https://en.wikipedia.org/wiki/Rabbids_Go_Home" target="_blank" id="rgh"><img
+                        src="media/games/rgh_logo.webp" alt="Rabbids Go Home logo"></a>
                 <div class="direction-on-size">
-                    <div> 
-                <p>This is a Nintendo Wii platformer game too, but this one was made by Ubisoft. I also have this on disc</p>
-                <p>In this game you play with 3 crazy Rabbids from many. The game has quite an interesting (and crazy) story, if I understood correctly, they sleep on spherical streetlamps and one night they noticed the moon, which they thought was also a lamp, except that it was huge. They came up with a plan to build a huge tower to reach it. But since they don't have enough materials, they have come up with the idea of stealing everything they can from people and using that to build the tower. The interesting thing about the game is that you can't jump in it. You rob humanity with a shopping cart with another rabbid in it.</p>
-                <p>Overall a very crazy but funny game with very creative levels.</p>      
-                </div>     
+                    <div>
+                        <p>This is a Nintendo Wii platformer game too, but this one was made by Ubisoft. I also have
+                            this on disc</p>
+                        <p>In this game you play with 3 crazy Rabbids from many. The game has quite an interesting (and
+                            crazy) story, if I understood correctly, they sleep on spherical streetlamps and one night
+                            they noticed the moon, which they thought was also a lamp, except that it was huge. They
+                            came up with a plan to build a huge tower to reach it. But since they don't have enough
+                            materials, they have come up with the idea of stealing everything they can from people and
+                            using that to build the tower. The interesting thing about the game is that you can't jump
+                            in it. You rob humanity with a shopping cart with another rabbid in it.</p>
+                        <p>Overall a very crazy but funny game with very creative levels.</p>
+                    </div>
                     <img src="media/games/rgh_image.webp" alt="Rabbids Go Home image">
                 </div>
-    
-                <a href="https://2dboy.com/" target="_blank" id="wg"><img src="media/games/wog_logo.webp" alt="World of Goo logo"  class="white-icon"></a>    
+
+                <a href="https://2dboy.com/" target="_blank" id="wg"><img src="media/games/wog_logo.webp"
+                        alt="World of Goo logo" class="white-icon"></a>
                 <div class="direction-on-size">
-                    <div> 
-                <p>I first started playing this game with my dad on our old XP PC.</p>
-                <p>In this game, you have to use a bunch of strange little goo balls to build bridges, towers and all kind of shapes, but unlike in the usual bridge building games, nothing drives over it after we are done. There is a starting point and you have to build some type of bridge with the balls to a pipe. These balls are constantly crawling on our bridge or on the map until we use them for the construction. One of the goals of the game is to use as few balls as possible, because the rest are sucked up by the pipe, which we can then use to build a huge tower in a separate map.</p>
-                <p>The game is full of creative levels and has a very interesting and deep story. The sequel was also great!</p>
-                </div>
+                    <div>
+                        <p>I first started playing this game with my dad on our old XP PC.</p>
+                        <p>In this game, you have to use a bunch of strange little goo balls to build bridges, towers
+                            and all kind of shapes, but unlike in the usual bridge building games, nothing drives over
+                            it after we are done. There is a starting point and you have to build some type of bridge
+                            with the balls to a pipe. These balls are constantly crawling on our bridge or on the map
+                            until we use them for the construction. One of the goals of the game is to use as few balls
+                            as possible, because the rest are sucked up by the pipe, which we can then use to build a
+                            huge tower in a separate map.</p>
+                        <p>The game is full of creative levels and has a very interesting and deep story. The sequel was
+                            also great!</p>
+                    </div>
                     <img src="media/games/wog_image.webp" alt="World of Goo image">
                 </div>
-            
-                <a href="https://store.steampowered.com/app/620/Portal_2/" target="_blank" id="portal"><img src="media/games/portal_logo.webp" alt="Portal 2 logo"></a>   
+
+                <a href="https://store.steampowered.com/app/620/Portal_2/" target="_blank" id="portal"><img
+                        src="media/games/portal_logo.webp" alt="Portal 2 logo"></a>
                 <div class="direction-on-size">
-                    <div> 
-                <p>I discovered this game when I was still in elementary school. I don't remember from where, but I really enjoyed it.</p>
-                <p>This is a 3D puzzle game from Valve. The main idea in the game is that you have a portal gun, with which you can shoot two portals at specific places, and then you can go through them, and thus you have to solve all kinds of puzzles. The game later introduces buttons, cubes that can be placed on them, launchers, all kinds of liquids that pass through your portals and much more.</p>
-                <p>The game is very long and full of unexpected twists and turns, the story is very elaborate.</p>
-                </div>
+                    <div>
+                        <p>I discovered this game when I was still in elementary school. I don't remember from where,
+                            but I really enjoyed it.</p>
+                        <p>This is a 3D puzzle game from Valve. The main idea in the game is that you have a portal gun,
+                            with which you can shoot two portals at specific places, and then you can go through them,
+                            and thus you have to solve all kinds of puzzles. The game later introduces buttons, cubes
+                            that can be placed on them, launchers, all kinds of liquids that pass through your portals
+                            and much more.</p>
+                        <p>The game is very long and full of unexpected twists and turns, the story is very elaborate.
+                        </p>
+                    </div>
                     <img src="media/games/portal_image.webp" alt="Portal 2 image">
                 </div>
-    
-                <a href="https://www.ea.com/games/plants-vs-zombies/plants-vs-zombies" target="_blank" id="pvz"><img src="media/games/pvz_logo.webp" alt="Plants vs Zombies logo"></a>
+
+                <a href="https://www.ea.com/games/plants-vs-zombies/plants-vs-zombies" target="_blank" id="pvz"><img
+                        src="media/games/pvz_logo.webp" alt="Plants vs Zombies logo"></a>
                 <div class="direction-on-size">
-                    <div> 
-                <p>This was also a game I played a lot with my dad when I was a little.</p>
-                <p>This game is basically a tower defense game fundamentally reimagined. Zombies come from the right and you have to plant plants that shoot them. There are 3 locations in the game, each of them has night and day versions, which always changes the gameplay a little.</p>
-                <p>New plants and new zombies are constantly being introduced during the game, so you can't get bored. Even mini-games are unlocked as you progress the game, so there will still be content after you finish the story mode.</p>
-                </div>
+                    <div>
+                        <p>This was also a game I played a lot with my dad when I was a little.</p>
+                        <p>This game is basically a tower defense game fundamentally reimagined. Zombies come from the
+                            right and you have to plant plants that shoot them. There are 3 locations in the game, each
+                            of them has night and day versions, which always changes the gameplay a little.</p>
+                        <p>New plants and new zombies are constantly being introduced during the game, so you can't get
+                            bored. Even mini-games are unlocked as you progress the game, so there will still be content
+                            after you finish the story mode.</p>
+                    </div>
                     <img src="media/games/pvz_image.webp" alt="Plants vs Zombies image">
                 </div>
-            
-                <a href="https://beatsaber.com/" target="_blank" id="bs"><img src="media/games/beat_saber_logo.webp" alt="Beat Saber logo"></a>
+
+                <a href="https://beatsaber.com/" target="_blank" id="bs"><img src="media/games/beat_saber_logo.webp"
+                        alt="Beat Saber logo"></a>
                 <div class="direction-on-size">
-                    <div> 
-                <p>I bought this game as soon as I bought my first VR. I still play it when I have time and the game has some new interesting content</p>
-                <p>This is a virtual reality game where you have to rhythmically cut the cubes flying towards you in the direction of the arrows that appear on them with the sword of the color of the cube. (huh). You can play it alone or with friends or even with strangers online. The game has amazing graphics, it's very good at lighting.</p>
-                <p>If you buy a VR, this should be the first game you play</p>
-                </div>
+                    <div>
+                        <p>I bought this game as soon as I bought my first VR. I still play it when I have time and the
+                            game has some new interesting content</p>
+                        <p>This is a virtual reality game where you have to rhythmically cut the cubes flying towards
+                            you in the direction of the arrows that appear on them with the sword of the color of the
+                            cube. (huh). You can play it alone or with friends or even with strangers online. The game
+                            has amazing graphics, it's very good at lighting.</p>
+                        <p>If you buy a VR, this should be the first game you play</p>
+                    </div>
                     <img src="media/games/beat_saber_image.webp" alt="Beat Saber image">
                 </div>
-    
-                <a href="https://unknownworlds.com/subnautica/" target="_blank" id="subnautica"><img src="media/games/subnautica_logo.webp" alt="Subnautica logo"></a>   
+
+                <a href="https://unknownworlds.com/subnautica/" target="_blank" id="subnautica"><img
+                        src="media/games/subnautica_logo.webp" alt="Subnautica logo"></a>
                 <div class="direction-on-size">
-                    <div> 
-                <p>It's a story based 3D survival game. I think this game is one of the reasons I started making <a href="projects#undercave">my own survival game</a>.</p>
-                <p>In this game, you are a researcher who has crash-landed on an alien planet that's mostly water. The goal of the game is to discover the planet and then get out alive.</p>
-                <p>It has an impressive world of life, amazing graphics and a cool story</p>
-                </div>
+                    <div>
+                        <p>It's a story based 3D survival game. I think this game is one of the reasons I started making
+                            <a href="projects#undercave">my own survival game</a>.
+                        </p>
+                        <p>In this game, you are a researcher who has crash-landed on an alien planet that's mostly
+                            water. The goal of the game is to discover the planet and then get out alive.</p>
+                        <p>It has an impressive world of life, amazing graphics and a cool story</p>
+                    </div>
                     <img src="media/games/subnautica_image.webp" alt="Subnautica image">
                 </div>
-            
-                <a href="" target="_blank" id="minecraft"><img src="media/games/minecraft_logo.webp" alt="Minecraft logo"></a>
+
+                <a href="" target="_blank" id="minecraft"><img src="media/games/minecraft_logo.webp"
+                        alt="Minecraft logo"></a>
                 <div class="direction-on-size">
-                    <div> 
-                <p>Nowadays, I play it very rarely, usually with friends when there is something new. I used to play this every single day on the family Xbox360.</p>
-                <p>I think everyone knows this game. It takes place in a world where everything is built from cubes. almost everything can be destroyed, placed, moved and, thanks to this, almost everything can be built in it. It also has survival and creative modes. In survival mode, your goal is to have a base, equip yourself with the best equipment, and then defeat the Ender Dragon. Then, of course, you can still collect all kinds of advancements, such as collect a diamonds, breed animals, etc... In creative mode, you can access all the cubes and tools and create whatever you want out of them while flying.</p>
-                <p>The game gets updates almost every year, so you can only get bored after many many years.</p>
-                </div>
+                    <div>
+                        <p>Nowadays, I play it very rarely, usually with friends when there is something new. I used to
+                            play this every single day on the family Xbox360.</p>
+                        <p>I think everyone knows this game. It takes place in a world where everything is built from
+                            cubes. almost everything can be destroyed, placed, moved and, thanks to this, almost
+                            everything can be built in it. It also has survival and creative modes. In survival mode,
+                            your goal is to have a base, equip yourself with the best equipment, and then defeat the
+                            Ender Dragon. Then, of course, you can still collect all kinds of advancements, such as
+                            collect a diamonds, breed animals, etc... In creative mode, you can access all the cubes and
+                            tools and create whatever you want out of them while flying.</p>
+                        <p>The game gets updates almost every year, so you can only get bored after many many years.</p>
+                    </div>
                     <img src="media/games/minecraft_image.webp" alt="Minecraft image">
                 </div>
-            
-            </div> 
-        
 
+            </div>
+
+            <h3 id="series">Favorite series</h3>
             <div class="align-children-images-to-start align-children-title-images-to-center">
-                <h3 id="series">Favorite series</h3>
-                <a id="bb" href="https://www.imdb.com/title/tt0903747" target="_blank" id="smg"><img src="media/series/breaking_bad_logo_800w.png" alt="Breaking Bad logo"></a>
-    
+
+                <a id="bb" href="https://www.imdb.com/title/tt0903747" target="_blank" id="smg"><img
+                        src="media/series/breaking_bad_logo_800w.png" alt="Breaking Bad logo"></a>
+
                 <div class="direction-on-size">
-                    <div>  
-                        <p>When the last season of Better Call Saul was released the hype for the Breaking Bad universe rose again and everyone was talking about it. I was also very curious about the origins of the memes, so I started watching</p>
-                        <p>A chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine with a former student to secure his family's future.</p>
+                    <div>
+                        <p>When the last season of Better Call Saul was released the hype for the Breaking Bad universe
+                            rose again and everyone was talking about it. I was also very curious about the origins of
+                            the memes, so I started watching</p>
+                        <p>A chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling
+                            methamphetamine with a former student to secure his family's future.</p>
                         <p>I haven't watched many series, but this was my favorite. It was almost addictive.</p>
                     </div>
                     <img src="media/series/braking_bad_600h.webp" alt="Breaking Bad image">
                 </div>
-            
-    
-                <a id="bcs" href="https://www.imdb.com/title/tt3032476" target="_blank" id="rgh"><img src="media/series/better_call_saul_logo.svg" alt="Better Call Saul logo"></a>   
+
+
+                <a id="bcs" href="https://www.imdb.com/title/tt3032476" target="_blank" id="rgh"><img
+                        src="media/series/better_call_saul_logo.svg" alt="Better Call Saul logo"></a>
                 <div class="direction-on-size">
-                    <div>    
+                    <div>
                         <p>After watching Breaking Bad and El Camino I knew I had to watch Better Call Saul as well.</p>
-                        <p>The trials and tribulations of criminal lawyer Jimmy McGill in the years leading up to and into his fateful run-in with Walter White and Jesse Pinkman.</p>
-                        <p>It wasn't as addictive as Breaking Bad and started a bit slower, but overall I really enjoyed it!</p>
-                    </div>     
+                        <p>The trials and tribulations of criminal lawyer Jimmy McGill in the years leading up to and
+                            into his fateful run-in with Walter White and Jesse Pinkman.</p>
+                        <p>It wasn't as addictive as Breaking Bad and started a bit slower, but overall I really enjoyed
+                            it!</p>
+                    </div>
                     <img src="media/series/better_call_saul_600px.webp" alt="Better Call Saul image">
                 </div>
 
-                <a id="mf" href="https://www.youtube.com/playlist?list=PLZRRxQcaEjA4qyEuYfAMCazlL0vQDkIj2" target="_blank" id="rgh"><img src="media/series/mind_field_logo.png" alt="Mind Field logo"></a>   
+                <a id="mf" href="https://www.youtube.com/playlist?list=PLZRRxQcaEjA4qyEuYfAMCazlL0vQDkIj2"
+                    target="_blank" id="rgh"><img src="media/series/mind_field_logo.png" alt="Mind Field logo"></a>
                 <div class="direction-on-size">
-                    <div>    
+                    <div>
                         <p>One time YouTube just recommended me this series out of nowhere.</p>
-                        <p>Mind Field is created and presented by the creator of the YouTube channel Vsauce. This is a documentary-style series which focuses on aspects of human behavior, particularly the brain and the influences of consciousness. Every episode contains one or more experiments, in which either volunteers or Stevens himself participates</p>
+                        <p>Mind Field is created and presented by the creator of the YouTube channel Vsauce. This is a
+                            documentary-style series which focuses on aspects of human behavior, particularly the brain
+                            and the influences of consciousness. Every episode contains one or more experiments, in
+                            which either volunteers or Stevens himself participates</p>
                         <p>Overall I found it really enjoyable and thought-provoking. It was worth the time.</p>
-                    </div>     
+                    </div>
                     <img src="media/series/mind_field_600h.webp" alt="Mind Field image">
                 </div>
 
-                <a id="sg" href="https://www.imdb.com/title/tt10919420" target="_blank" id="rgh"><img src="media/series/squid_game_logo.svg" alt="Squid Game logo" class="black-icon"></a>   
+                <a id="sg" href="https://www.imdb.com/title/tt10919420" target="_blank" id="rgh"><img
+                        src="media/series/squid_game_logo.svg" alt="Squid Game logo" class="black-icon"></a>
                 <div class="direction-on-size">
-                <div>    
-                    <p>Only reason I watched it was because of the hype.</p>
-                    <p>Hundreds of cash-strapped players accept a strange invitation to compete in children's games. Inside, a tempting prize awaits with deadly high stakes: a survival game that has a whopping 45.6 billion-won prize at stake.</p>
-                    <p>I liked it!</p>
-                </div>     
+                    <div>
+                        <p>Only reason I watched it was because of the hype, but then it turned out really thought-provoking.</p>
+                        <p>Hundreds of cash-strapped players accept a strange invitation to compete in children's games.
+                            Inside, a tempting prize awaits with deadly high stakes: a survival game that has a whopping
+                            45.6 billion-won prize at stake.</p>
+                        <p>I liked it!</p>
+                    </div>
                     <img src="media/series/squid_game_600px.webp" alt="Squid Game image">
                 </div>
             </div>
 
             <h3 id="books">Books I read</h3>
-            <p>I've never been a big bookworm, but lately I want to change that. Basically, the following books are the only ones that I remember I read all the way through, or almost</p>
-           
-                <div class="direction-on-size">
-                    <div style="flex: 1;" class="margin-on-size">
+            <p>I've never been a big bookworm, but lately I want to change that. Basically, the following books are the
+                only ones that I remember I read all the way through, or almost</p>
+
+            <div class="direction-on-size">
+                <div style="flex: 1;" class="margin-on-size">
                     <h4 id="attwn">And Then There Were None</h4>
                     <div class="direction-on-size">
-                        <img src="media/books/and_then_there_were_none_600px.webp" alt="And Then There Were None" class="vertical-image">
+                        <img src="media/books/and_then_there_were_none_600px.webp" alt="And Then There Were None"
+                            class="vertical-image">
                         <div>
-                            <p>This book was mentadory to read in school, but this was the second book in my life that I enjoyed</p>
-                            <p>Eight people arrive on a small, isolated island, each having received an unexpected invitation, but their hosts, Mr and Mrs Owen, have not yet arrived. Slowly everyone dies exactly as it's written in a children's song, one by one, but no one knows who is the impostor.</p>
+                            <p>This book was mentadory to read in school, but this was the second book in my life that I
+                                enjoyed</p>
+                            <p>Eight people arrive on a small, isolated island, each having received an unexpected
+                                invitation, but their hosts, Mr and Mrs Owen, have not yet arrived. Slowly everyone dies
+                                exactly as it's written in a children's song, one by one, but no one knows who is the
+                                impostor.</p>
                             <p>A very well written book, I was nervous the whole time.</p>
                         </div>
                     </div>
                 </div>
-                    <div style="flex: 1;">
+                <div style="flex: 1;">
                     <h4 id="tsp">The Silent Patient</h4>
                     <div class="direction-on-size">
-                        <img src="media/books/the_silent_patient_600px.webp" alt="The Silent Patient" class="vertical-image">
-                        <div>        
-                            <p>A friend of mine recommended this book. This was the very first one I read through in my life by myself...</p>
-                            <p>Shocking psychological thriller about a woman who murders her husband and becomes silent after, and a therapist who obsessively investigates her motives.</p>
-                            <p>I really liked that it ran on multiple threads and the plot at the end was also great.</p>
+                        <img src="media/books/the_silent_patient_600px.webp" alt="The Silent Patient"
+                            class="vertical-image">
+                        <div>
+                            <p>A friend of mine recommended this book. This was the very first one I read through in my
+                                life by myself...</p>
+                            <p>Shocking psychological thriller about a woman who murders her husband and becomes silent
+                                after, and a therapist who obsessively investigates her motives.</p>
+                            <p>I really liked that it ran on multiple threads and the plot at the end was also great.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-          
-        </div> 
+
+        </div>
+                <div class="bottombar">
+            <div>
+                <p>This page was made using pure HTML, CSS and JavaScript, and is hosted on GitHub</p>
+                <a href="https://github.com/Marci599/Marci599.github.io/commits/main" target="_blank">Updated on 2025-09-11</a>
+            </div>
+        </div>
     </div>
     <div class="layout-horizontal navigationbar-div">
         <a href="/" class="tab">Home</a>
@@ -233,4 +383,5 @@
     <script src="AboutMe.js"></script>
     <script src="Theme.js"></script>
 </body>
+
 </html>
