@@ -30,6 +30,10 @@
     --hover-background-color: rgba(0, 0, 0, 0.1);
     --click-background-color: rgba(0, 0, 0, 0.2);
 
+    --dark-hover-background-color: rgba(255, 255, 255, 0.1);
+    --dark-click-background-color: rgba(255, 255, 255, 0.2);
+
+
     --box-shadow: 0px 1px 3.33px rgba(0, 0, 0, 0.33);
 
     --dark-primary-color: #6eb9f5;
@@ -40,11 +44,14 @@
     --black-overlay: invert(100%);
 
 
-    --hover-darkness: brightness(120%);
-    --click-darkness: brightness(140%);
+    --hover-brightness: brightness(120%);
+    --click-brightness: brightness(140%);
 
-    --hover-brightness: brightness(80%);
-    --click-brightness: brightness(60%);
+    --hover-brightness-inverse: brightness(80%);
+    --click-brightness-inverse: brightness(60%);
+
+    --dark-hover-brightness-inverse: brightness(80%);
+    --dark-click-brightness-inverse: brightness(60%);
 
 
 
@@ -128,11 +135,14 @@
         --white-overlay: invert(98%) sepia(0%) saturate(879%) hue-rotate(159deg) brightness(111%) contrast(100%);
         --black-overlay: invert(0%);
 
-        --hover-darkness: brightness(80%);
-        --click-darkness: brightness(60%);
+        --hover-brightness: brightness(80%);
+        --click-brightness: brightness(60%);
 
-        --hover-brightness: brightness(120%);
-        --click-brightness: brightness(140%);
+        --hover-brightness: brightness(80%);
+        --click-brightness: brightness(60%);
+
+        --hover-brightness-inverse: brightness(120%);
+        --click-brightness-inverse: brightness(140%);
 
         --hover-background-color: rgba(255, 255, 255, 0.1);
         --click-background-color: rgba(255, 255, 255, 0.2);
@@ -447,6 +457,16 @@ button:hover,
     background-color: var(--hover-background-color);
 }
 
+button.dark:active,
+.button.dark:active {
+    background-color: var(--dark-click-background-color);
+}
+
+button.dark:hover,
+.button.dark:hover {
+    background-color: var(--dark-hover-background-color);
+}
+
 button:active,
 .button:active {
     background-color: var(--click-background-color);
@@ -474,7 +494,7 @@ button:active,
 .align-children-title-images-to-center a:hover,
 button.owl-next:hover,
 button.owl-prev:hover {
-    filter: var(--hover-darkness);
+    filter: var(--hover-brightness);
 }
 
 .primary:active,
@@ -482,7 +502,7 @@ button.owl-prev:hover {
 .align-children-title-images-to-center a:active,
 button.owl-next:active,
 button.owl-prev:active {
-    filter: var(--click-darkness);
+    filter: var(--click-brightness);
 }
 
 .chip-group {
@@ -1164,13 +1184,13 @@ p.carousel-title {
 
 
 a.summary-container:hover {
-    filter: var(--hover-brightness);
+    filter: var(--hover-brightness-inverse);
     border: 2.5px solid var(--select-color);
 
 }
 
 a.summary-container:active {
-    filter: var(--click-brightness);
+    filter: var(--click-brightness-inverse);
     border: 5px solid var(--select-color);
 
 }
@@ -1192,12 +1212,12 @@ a.summary-container:active>img {
 }
 
 .cards>a:hover {
-    filter: var(--hover-darkness);
+    filter: var(--dark-hover-brightness);
 
 }
 
 .cards>a:active {
-    filter: var(--click-darkness);
+    filter: var(--dark-click-brightness);
 }
 
 
