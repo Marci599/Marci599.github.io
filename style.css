@@ -678,6 +678,10 @@ button.owl-prev:active {
     margin-bottom: var(--container-margin);
 }
 
+.banner-foreground.jesus>div.image-container{
+    height: unset !important;
+}
+
 .banner-foreground>div {
 
     margin-top: 50px;
