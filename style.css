@@ -563,12 +563,12 @@ dialog > .cards.vertical > a > div > img{
 
 button:hover,
 .button:hover {
-    background-color: var(--hover-background-color);
+    background-color: var(--hover-background-color) !important;
 }
 
 button.dark:active,
 .button.dark:active {
-    background-color: var(--dark-click-background-color);
+    background-color: var(--dark-click-background-color) !important;
 }
 
 button.dark:hover,
@@ -578,7 +578,7 @@ button.dark:hover,
 
 button:active,
 .button:active {
-    background-color: var(--click-background-color);
+    background-color: var(--click-background-color) !important;
 }
 
 .primary,
