@@ -21,6 +21,24 @@ document.getElementById("me").addEventListener("click", (event) => {
     }
 });
 
+const dialog = document.querySelector("dialog");
+const dialogCloseButton = document.getElementById("dialog-close-button");
+
+
+document.getElementById("youtube-chip").addEventListener("click", (event) => {
+    dialog.showModal();
+});
+
+dialogCloseButton.addEventListener("click", (event) => {
+    dialog.close();
+});
+
+// Close the dialog when clicking the backdrop area (::backdrop)
+dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+        dialog.close();
+    }
+});
 
 
  
