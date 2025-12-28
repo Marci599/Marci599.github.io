@@ -1681,6 +1681,15 @@ button.owl-next {
 
                 @media (max-width: 546px) {
 
+                    .dialog-header h3{
+                        font-size: large !important;
+                    }
+
+                    .cards div p {
+                        font-size: medium !important;
+                  
+                    }
+
                     .bottombar>div{
                         flex-direction: column;
                         align-items: start;
