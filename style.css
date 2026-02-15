@@ -1391,7 +1391,7 @@ p.status {
 
     height: min-content;
     width: fit-content !important;
-    border-radius: var(--chip-corner-radius);
+    border-radius: var(--chip-corner-radius) !important;
     box-shadow: var(--box-shadow);
 }
 
