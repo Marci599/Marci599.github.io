@@ -45,17 +45,17 @@
     --black-overlay: invert(100%);
 
 
-    --hover-brightness: brightness(120%);
-    --click-brightness: brightness(140%);
+    --hover-brightness: brightness(115%);
+    --click-brightness: brightness(130%);
 
-    --hover-brightness-inverse: brightness(80%);
-    --click-brightness-inverse: brightness(60%);
+    --hover-brightness-inverse: brightness(85%);
+    --click-brightness-inverse: brightness(70%);
 
-    --hover-brightness-inverse-value: 80%;
-    --click-brightness-inverse-value: 60%;
+    --hover-brightness-inverse-value: 85%;
+    --click-brightness-inverse-value: 70%;
 
-    --dark-hover-brightness: brightness(80%);
-    --dark-click-brightness: brightness(60%);
+    --dark-hover-brightness: brightness(85%);
+    --dark-click-brightness: brightness(70%);
 
 
 
@@ -139,17 +139,14 @@
         --white-overlay: invert(98%) sepia(0%) saturate(879%) hue-rotate(159deg) brightness(111%) contrast(100%);
         --black-overlay: invert(0%);
 
-        --hover-brightness: brightness(80%);
-        --click-brightness: brightness(60%);
+        --hover-brightness: brightness(85%);
+        --click-brightness: brightness(70%);
 
-        --hover-brightness: brightness(80%);
-        --click-brightness: brightness(60%);
+        --hover-brightness-inverse: brightness(115%);
+        --click-brightness-inverse: brightness(130%);
 
-        --hover-brightness-inverse: brightness(120%);
-        --click-brightness-inverse: brightness(140%);
-
-        --hover-brightness-inverse-value: 120%;
-        --click-brightness-inverse-value: 140%;
+        --hover-brightness-inverse-value: 115%;
+        --click-brightness-inverse-value: 130%;
 
         --hover-background-color: rgba(255, 255, 255, 0.1);
         --click-background-color: rgba(255, 255, 255, 0.2);
@@ -385,9 +382,17 @@ a:hover {
     text-decoration: underline;
 }
 
-.align-children-images-to-start img {
-    margin-left: var(--container-margin);
+.align-children-images-to-start > div > img,
+.align-children-images-to-start > a > img  {
     align-self: flex-start;
+}
+
+.align-children-images-to-start > a > img {
+    border-radius: 0px !important;
+}
+
+.align-children-images-to-start > div > img {
+    margin-right: var(--container-margin);
 }
 
 .align-children-images-to-start p {
@@ -1396,7 +1401,7 @@ p.status {
 }
 
 .status.wip {
-    background: rgb(214, 157, 35) !important;
+    background: rgb(218, 132, 20) !important;
 }
 
 .status.maintained {
@@ -1406,12 +1411,12 @@ p.status {
 
 .status.abandoned {
 
-    background: rgb(129, 36, 8) !important;
+    background: rgb(138, 10, 143) !important;
 }
 
 .status.executed {
 
-    background: rgb(10, 159, 179) !important;
+    background: rgb(0, 168, 190) !important;
 }
 
 .summary-container:visited {
@@ -1462,6 +1467,19 @@ a.summary-container:hover img:not(.background) {
 
 }
 
+a.summary-container.dark::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: var(--border-radius);
+  pointer-events: none;
+  z-index: 2;
+}
+
 a.summary-container:hover img.background{
   filter: brightness(calc(33% + (var(--hover-brightness-inverse-value) - 100%))) blur(25px);
 }
@@ -1486,7 +1504,7 @@ a.summary-container:active img.background{
 }
 
 
-a.summary-container>img {
+.summary-container>img {
     border-radius: var(--border-radius);
     z-index: 1;
 }
