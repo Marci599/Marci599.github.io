@@ -382,33 +382,6 @@ a:hover {
     text-decoration: underline;
 }
 
-.align-children-images-to-start > div > img,
-.align-children-images-to-start > a > img  {
-    align-self: flex-start;
-}
-
-.align-children-images-to-start > a > img {
-    border-radius: 0px !important;
-}
-
-.align-children-images-to-start > div > img {
-    margin-right: var(--container-margin);
-}
-
-.align-children-images-to-start p {
-    text-align: justify;
-}
-
-.align-children-title-images-to-center>a {
-    display: block;
-    width: fit-content !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    margin-top: calc(var(--big-space)*1.5);
-    margin-bottom: var(--text-margin);
-    transition: filter var(--transition-speed);
-}
-
 .margin-on-size {
     margin-right: 25px;
 }
@@ -605,7 +578,6 @@ button:active,
 
 .primary:hover,
 .secondary:hover,
-.align-children-title-images-to-center a:hover,
 button.owl-next:hover,
 button.owl-prev:hover {
     filter: var(--hover-brightness);
@@ -613,7 +585,6 @@ button.owl-prev:hover {
 
 .primary:active,
 .secondary:active,
-.align-children-title-images-to-center a:active,
 button.owl-next:active,
 button.owl-prev:active {
     filter: var(--click-brightness);
@@ -1716,6 +1687,80 @@ button.owl-next {
 
 }
 
+.interactible-panel{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    --padding-size: calc((100dvw - 100% - var(--scroll-bar-size))/2);
+    --margin-size: calc(var(--padding-size)*-1);
+    margin-left: var(--margin-size);
+    margin-right: var(--margin-size);
+    padding-left: var(--padding-size);
+    padding-right: var(--padding-size);
+    padding-top: var(--big-space);
+    padding-bottom: var(--page-padding);
+    overflow: hidden;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed);
+    scale: 1;
+
+}
+
+.interactible-panel:hover{
+    text-decoration: none;
+    cursor: pointer;
+    background-color: var(--primary-text-color);
+}
+
+.interactible-panel:visited{
+    color: var(--text-color);
+}
+
+
+.interactible-panel>img:first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    filter: blur(50px);
+   scale: 1.25;
+    object-fit: cover;   
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+
+
+}
+
+.interactible-panel:hover>img:first-child{
+    opacity: 0.33;
+}
+
+
+.interactible-panel>img:nth-child(2) {
+    align-self: center;
+    margin-bottom: var(--container-margin);
+    z-index: 1;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.interactible-panel>div>img{
+    margin-right: var(--container-margin);
+}
+
+.interactible-panel:hover>div>img{
+    margin-right: var(--container-margin);
+    box-shadow: var(--box-shadow);
+}
+
+.interactible-panel>div {
+
+    z-index: 1;
+}
+
 @media (max-width: 1340px) {
     .webbar>div {
 
@@ -1807,10 +1852,14 @@ button.owl-next {
                     align-self: center;
                 }
 
-                .align-children-images-to-start img {
-                    align-self: center;
-                    margin-left: 0px;
+                .interactible-panel > div > img {
+                    align-self: center !important;
+                    margin-right: 0px !important;
                     margin-top: var(--container-margin);
+                }
+
+                .interactible-panel > div{
+                    flex-direction: column-reverse !important;
                 }
 
                 .main-scroll-area {
@@ -2035,6 +2084,15 @@ button.owl-next {
 
                     .banner h2 {
                         font-size: 20px;
+                    }
+
+                    .interactible-panel{
+                        --padding-size: calc((100dvw - 100%)/2);
+                        --margin-size: calc(var(--padding-size)*-1);
+                        margin-left: var(--margin-size);
+                        margin-right: var(--margin-size);
+                        padding-left: var(--padding-size);
+                        padding-right: var(--padding-size);
                     }
                 }
             }
