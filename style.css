@@ -1807,6 +1807,35 @@ a.interactible-panel:hover{
     transition: opacity var(--transition-speed);
 }
 
+.interactible-panel>img:last-child:not(.status){
+    position: absolute;
+    top: 0;
+    
+    width: calc(100% - var(--scroll-bar-size)) !important;
+    max-width:  var(--page-width) !important;
+    height: 40px;
+    opacity: 0.33;
+    transition: opacity var(--transition-speed);
+    object-fit: contain;
+    object-position: 100% 100%;
+}
+
+.interactible-panel>div {
+    position: relative;
+}
+
+.interactible-panel>div>p.status {
+    position: absolute;
+    left: 5px;
+    bottom: -5px;
+    align-self: flex-end;
+    z-index: 4;
+}
+
+.interactible-panel:hover>img:last-child:not(.status){
+    opacity: 0.67;
+}
+
 .interactible-panel>img:first-child {
     filter: blur(50px);
     scale: 1.25;
