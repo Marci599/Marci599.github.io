@@ -2297,6 +2297,14 @@ a.interactible-panel:hover{
     height: 50px;
 }
 
+.image-zoom-close:hover {
+    background-color: var(--dark-hover-background-color) !important;
+}
+
+.image-zoom-close:active {
+    background-color: var(--dark-click-background-color) !important;
+}
+
 .image-zoom-close>img {
     height: 30px !important;
     width: 30px !important;
@@ -2304,7 +2312,7 @@ a.interactible-panel:hover{
     margin-right: 0px !important;
     margin-top: 0px !important;
     margin-bottom: 0px !important;
-    filter: var(--black-overlay);
+
 }
 
 .image-zoom-caption {
