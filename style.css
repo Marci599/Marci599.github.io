@@ -1815,10 +1815,13 @@ a.interactible-panel:hover{
     max-width:  var(--page-width) !important;
     height: 40px;
     opacity: 0.33;
-    transition: opacity var(--transition-speed);
+    transition-property: opacity, transform;
+    transition-duration: var(--transition-speed);
     object-fit: contain;
     object-position: 100% 100%;
+    transform: translate(-5px, 5px);
 }
+
 
 .interactible-panel>div {
     position: relative;
@@ -1834,6 +1837,7 @@ a.interactible-panel:hover{
 
 .interactible-panel:hover>img:last-child:not(.status){
     opacity: 0.67;
+    transform: translate(0px, 0px);
 }
 
 .interactible-panel>img:first-child {
