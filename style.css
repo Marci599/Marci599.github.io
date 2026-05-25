@@ -1345,6 +1345,7 @@ img {
     height: auto;
 }
 
+.indicator>img,
 .white-icon {
     filter: var(--black-overlay);
 }
