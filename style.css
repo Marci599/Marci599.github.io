@@ -1969,9 +1969,9 @@ a.interactible-panel:hover{
 .interactible-panel>div:nth-child(3)>*:first-child,
 .interactible-panel .summary-container {
 
-    width: 400px !important;
+    width: 400px;
 
-    height: 225px;
+
     aspect-ratio: 16 / 9;
 } 
 
@@ -2102,13 +2102,13 @@ a.interactible-panel:hover{
                     align-self: center;
                 }
 
-                .interactible-panel > div:first-child() > *:first-child {
+                .interactible-panel > div:nth-child(3) > *:first-child {
                     align-self: center !important;
                     margin-right: 0px !important;
                     margin-top: var(--container-margin);
                 }
 
-                .interactible-panel > div:first-child(){
+                .interactible-panel > div:nth-child(3){
                     flex-direction: column-reverse !important;
                 }
 
