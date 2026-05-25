@@ -2102,13 +2102,13 @@ a.interactible-panel:hover{
                     align-self: center;
                 }
 
-                .interactible-panel > div > *:first-child {
+                .interactible-panel > div:first-child() > *:first-child {
                     align-self: center !important;
                     margin-right: 0px !important;
                     margin-top: var(--container-margin);
                 }
 
-                .interactible-panel > div{
+                .interactible-panel > div:first-child(){
                     flex-direction: column-reverse !important;
                 }
 
