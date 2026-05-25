@@ -1396,11 +1396,46 @@ div.image-cards>div {
 
 }
 
-/* Remove legacy side margins inside Owl items */
+.direction-on-size>.video-carousel {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 100%;
+}
+
+
 .owl-carousel .owl-item>.summary-container {
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
+
+.featured-video {
+    display: inline-block;
+    position: relative;
+}
+
+.video-title {
+    background-color: rgba(0, 0, 0, 0.65);
+    border-radius: calc(var(--border-radius) / 2);
+    color: white;
+    font-weight: 500;
+    left: 12px;
+    margin: 0;
+    padding: 6px 10px;
+    position: absolute;
+    top: 12px;
+    pointer-events: none;
+    z-index: 1;
+    font-size: medium !important;
+}
+
+video{ 
+    border-radius: var(--border-radius);   
+    display: block;
+    height: 300px;
+    aspect-ratio: 16/9;
+}
+
+
 
 .image-cards .summary-container {
 
@@ -1423,6 +1458,22 @@ p.status {
     width: fit-content !important;
     border-radius: var(--chip-corner-radius) !important;
     box-shadow: var(--box-shadow);
+}
+
+div.status-container {
+    gap: 10px;
+    display: flex;
+    position: absolute;
+    left: 5px;
+    bottom: -5px;
+    align-self: flex-end;
+    z-index: 4;
+    flex-direction: row;
+}
+
+.status.year {
+    background: var(--surface-low-color);
+    color: var(--text-color);
 }
 
 .status.wip {
@@ -1483,7 +1534,7 @@ a.summary-container:hover::before {
 
 a.summary-container:hover {
     background-color: var(--select-color);
-    border: none;
+
 
 }
 
@@ -1516,7 +1567,7 @@ a.summary-container:active::before {
 
 a.summary-container:active {
     background-color: var(--select-color);
-    border: none;
+
 
 }
 
@@ -1807,19 +1858,43 @@ a.interactible-panel:hover{
     transition: opacity var(--transition-speed);
 }
 
-.interactible-panel>img:last-child:not(.status){
+.interactible-panel>div.indicator {
     position: absolute;
     top: 0;
     
     width: calc(100% - var(--scroll-bar-size)) !important;
     max-width:  var(--page-width) !important;
-    height: 40px;
-    opacity: 0.33;
-    transition-property: opacity, transform;
+
+    transition-property: transform;
     transition-duration: var(--transition-speed);
     object-fit: contain;
     object-position: 100% 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+    height: 40px;
     transform: translate(-5px, 5px);
+}
+
+
+
+.interactible-panel>div.indicator>img {
+    transition-property: opacity;
+    transition-duration: var(--transition-speed);
+    opacity: 0.33;
+    width: 40px;
+
+}
+
+.interactible-panel>div.indicator>p {
+    transition-property: opacity, transform;
+    transition-duration: var(--transition-speed);
+    text-align: end;
+        transform: translate(10px, 0px);
+    opacity: 0;
+    align-self: center;
 }
 
 
@@ -1835,9 +1910,25 @@ a.interactible-panel:hover{
     z-index: 4;
 }
 
-.interactible-panel:hover>img:last-child:not(.status){
-    opacity: 0.67;
+.interactible-panel:hover>div.open.indicator {
+  
     transform: translate(0px, 0px);
+}
+
+.interactible-panel:hover>div.more.indicator {
+  
+    transform: translate(0px, 5px);
+}
+
+.interactible-panel:hover>div.indicator>img {
+    opacity: 0.67;
+   
+}
+
+.interactible-panel:hover>div.indicator>p {
+    opacity: 0.67;
+            transform: translate(0px, 0px);
+   
 }
 
 .interactible-panel>img:first-child {
@@ -1874,7 +1965,7 @@ a.interactible-panel:hover{
     margin-right: var(--middle-space);
 }
 
-.interactible-panel>div>*:first-child,
+.interactible-panel>div:nth-child(3)>*:first-child,
 .interactible-panel .summary-container {
 
     width: 400px !important;
@@ -1883,7 +1974,7 @@ a.interactible-panel:hover{
     aspect-ratio: 16 / 9;
 } 
 
-.interactible-panel>div>*:first-child{
+.interactible-panel>div:nth-child(3)>*:first-child{
     margin-right: var(--container-margin);
     align-self: unset;
     flex: unset !important;
@@ -1892,7 +1983,7 @@ a.interactible-panel:hover{
 
 }
 
-.interactible-panel>div>img{
+.interactible-panel>div:nth-child(3)>img {
         background-color: var(--surface-color);
 }
 
@@ -1901,7 +1992,7 @@ a.interactible-panel:hover{
     overflow: hidden;
 }
 
-.interactible-panel:hover>div>*:first-child {
+.interactible-panel:hover>div:nth-child(3)>*:first-child {
     margin-right: var(--container-margin);
     box-shadow: var(--box-shadow);
 }
@@ -1941,6 +2032,12 @@ a.interactible-panel:hover{
             }
 
             @media (max-width: 880px) {
+
+
+                video{
+                    height: unset !important;
+                    width: 100% !important;
+                }
 
                 .image-cards.direction-on-size>div,
                 .image-cards.direction-on-size>div>a>div {
