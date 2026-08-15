@@ -13,7 +13,7 @@ document.getElementById("age").innerHTML = getAge("2005/07/22");
 
 var clicks = 0
 
-document.getElementById("me").addEventListener("click", (event) => {
+document.getElementById("about-me").addEventListener("click", (event) => {
     clicks++;
     if(clicks == 5){
         window.alert("You will be redirected to my old site");
