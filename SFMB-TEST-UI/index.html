@@ -79,7 +79,7 @@ body{font-family:monospace;color:#fff}
 /* buttons + selection frame */
 .fab{position:absolute;bottom:10px;width:24px;height:24px;padding:0;border:0;background:var(--n) 0 0/100% 100% no-repeat;image-rendering:pixelated;cursor:pointer;z-index:6}
 .fab::before,.hi::before,.hb::before{content:"";position:absolute;inset:-4px;pointer-events:none}
-.fab::after,.hi::after,.hb::after,#asel::after{content:"";position:absolute;inset:0;border:9px solid transparent;border-image:var(--w9) 9/9px stretch;image-rendering:pixelated;pointer-events:none}
+.fab::after,.hi::after,.hb::after,#asel::after{content:"";position:absolute;inset:0;background:var(--c1) left top/9px 9px no-repeat,var(--c2) right top/9px 9px no-repeat,var(--c3) left bottom/9px 9px no-repeat,var(--c4) right bottom/9px 9px no-repeat;image-rendering:pixelated;pointer-events:none}
 .fab::after,.hi::after,.hb::after{opacity:0}
 .fab:hover::after,.hi:hover::after,.hb:hover::after{opacity:.47;animation:selo .4s var(--e) infinite alternate}
 .fab:active::after,.hi:active::after,.hb:active::after{opacity:1;animation:none}
@@ -104,7 +104,7 @@ body{font-family:monospace;color:#fff}
 
 /* screens */
 #fade{position:absolute;inset:0;z-index:30;background:#000;opacity:0;pointer-events:none;transition:opacity .35s}
-#stage.inst *{transition:none!important}
+#stage.inst *:not(#fade){transition:none!important}
 #home{position:absolute;inset:0;z-index:20;background:#3234dc;opacity:0;pointer-events:none}
 .h #home{opacity:1;pointer-events:auto}
 .ho{position:absolute;image-rendering:pixelated;display:block}
@@ -188,6 +188,10 @@ function bubble(lines,tailTop,tc){let w=0;lines.forEach(l=>w=Math.max(w,tw(l,'n'
  g.globalCompositeOperation='destination-out';g.fillStyle='#000';shape(0,0);g.globalCompositeOperation='source-over';g.fillStyle='#fff';shape(0,0);
  lines.forEach((l,i)=>g.drawImage(bt(l,'n','#000',null,1),4,y0+3+i*10));c.style.width=c.width+'px';c.style.height=c.height+'px';c.className='bt';c.bw=bw;c.bh=H;return c}
 const stage=$('stage'),listp=$('listp'),card=$('card'),vw=$('vw');
+// cut the 26x26 selection sprite into its four 9x9 corners
+(function(){const im=new Image();im.onload=()=>{[[0,0],[17,0],[0,17],[17,17]].forEach(([x,y],i)=>{const c=document.createElement('canvas');c.width=c.height=9;c.getContext('2d').drawImage(im,x,y,9,9,0,0,9,9);stage.style.setProperty('--c'+(i+1),`url(${c.toDataURL()})`)})};im.src=getComputedStyle(stage).getPropertyValue('--w9').trim().replace(/^url\(["']?|["']?\)$/g,'')})();
+// wheel: Firefox reports lines (and our text has no font size), so convert to pixels ourselves
+function wheelTo(view,e){if(e.deltaMode===0)return false;view.scrollBy({top:e.deltaY*(e.deltaMode===1?16:view.clientHeight),behavior:'smooth'});return true}
 // fit: scale the 421x243 game-pixel stage to fill the window (any factor, not only whole numbers)
 let scale=1,BK=1;
 // CSS zoom (not transform) so layout, animation and positions resolve to real device pixels
@@ -277,7 +281,7 @@ U.forEach(u=>{
 });
 
 let busy=false;
-function go(t,cb){if(busy)return;busy=true;const was=stage.classList.contains('h')?'home':stage.classList.contains('s')?'st':'gal';showBtip(null);$('fade').style.transitionTimingFunction='var(--eo)';$('fade').style.opacity=1;setTimeout(()=>{stage.classList.toggle('h',t==='home');stage.classList.toggle('s',t==='st');if(t!==was&&t!=='home')resetMenu(t);if(cb)cb();else syncHash();$('fade').style.transitionTimingFunction='var(--ei)';$('fade').style.opacity=0;setTimeout(()=>{busy=false},350)},350)}
+function go(t,cb){if(busy)return;busy=true;const was=stage.classList.contains('h')?'home':stage.classList.contains('s')?'st':'gal';showBtip(null);$('fade').style.transitionTimingFunction='var(--eo)';$('fade').style.opacity=1;setTimeout(()=>{stage.classList.add('inst');stage.classList.toggle('h',t==='home');stage.classList.toggle('s',t==='st');if(t!==was&&t!=='home')resetMenu(t);void stage.offsetWidth;requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove('inst')));if(cb)cb();else syncHash();$('fade').style.transitionTimingFunction='var(--ei)';$('fade').style.opacity=0;setTimeout(()=>{busy=false},350)},350)}
 $('hi1').addEventListener('click',()=>go('gal'));
 $('back').addEventListener('click',()=>go('home'));
 $('hi0').addEventListener('click',()=>go('st'));
@@ -286,6 +290,7 @@ $('hi0').addEventListener('click',()=>go('st'));
 function bar(view,thumb,track){
  const upd=()=>{const h=view.clientHeight,t=view.scrollHeight;if(t<=h+1){thumb.style.display='none';return}thumb.style.display='block';const th=Math.max(16,Math.round(track*h/t));thumb.style.height=th+'px';thumb.style.top=Math.round((track-th)*view.scrollTop/(t-h))+'px'};
  view.addEventListener('scroll',upd);
+ view.addEventListener('wheel',e=>{if(wheelTo(view,e))e.preventDefault()},{passive:false});
  thumb.addEventListener('pointerdown',e=>{const y0=e.clientY,s0=view.scrollTop;thumb.setPointerCapture(e.pointerId);const mv=ev=>{const tr=track-thumb.offsetHeight;view.scrollTop=s0+((ev.clientY-y0)/scale)/tr*(view.scrollHeight-view.clientHeight)};const up=()=>{thumb.removeEventListener('pointermove',mv);thumb.removeEventListener('pointerup',up)};thumb.addEventListener('pointermove',mv);thumb.addEventListener('pointerup',up)});
  return upd}
 // stages menu
@@ -431,7 +436,7 @@ const cst=$('cstat'),cnum={};
 function statVal(u,ix){if(u.me)return SV[ix]||0;const r=(((u.i+1)*7919+(ix+3)*104729)*2654435761>>>0)%1000;if(r%7===0)return 0;return 1+Math.floor(Math.pow(r/1000,3)*(ix===22?20000:(ix===0||ix===8||ix===13||ix===19)?900:120))}
 function renderStats(u){const run=()=>{for(const ix in cnum){const v=statVal(u,+ix);cnum[ix].c.classList.toggle('z',v===0);const sv=String(v);tx(cnum[ix].n,sv,'n','#fff',null,tw(sv,'n')*2>69?1:2)}};if(fReady)run();else FQ.push(run);setTimeout(updC,0)}
 const updC=bar(cst,$('csth'),159);
-card.addEventListener('wheel',e=>{if(card.classList.contains('t2')&&!cst.contains(e.target)){cst.scrollTop+=e.deltaY;e.preventDefault()}},{passive:false});
+card.addEventListener('wheel',e=>{if(card.classList.contains('t2')&&!cst.contains(e.target)){if(!wheelTo(cst,e))cst.scrollTop+=e.deltaY/scale;e.preventDefault()}},{passive:false});
 // ---- button tooltips
 const btip=$('btip');let btEl=null;
 function tipText(el){if(el.id==='whistle')return mode==='l'?'Spread':'Sort';if(el.id==='prof')return PUB?'Your profile is public.':'Your profile is private.';return el.dataset.tip}
@@ -450,7 +455,8 @@ function resetMenu(t){
  if(t==='gal'){si.value='';si.dispatchEvent(new Event('input'));
   if(mode==='l'){mode='b';stage.classList.remove('l');U.forEach(u=>{u.p=0;u.wait=0;u.ly=null})}
   if(open)closeCard();
-  sel=0;noTr(()=>{card.className='center'});setCardTab(0);cst.scrollTop=0;listp.scrollTop=0}
+  sel=0;noTr(()=>{card.className='center'});setCardTab(0);cst.scrollTop=0;listp.scrollTop=0;clearTimeout(parkT);
+  U.forEach(u=>{u.os=1;u._os=null;u.ns=0;u._ns=null;u.nm.style.opacity=0;u.frozen=false});tip.classList.remove('on');showBtip(null)}
 }
 // ---- URL hash routing: #main  #users  #users-list  #profile-<id>  #list-<id>  #stages  #stage-packs
 const slugOf=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
