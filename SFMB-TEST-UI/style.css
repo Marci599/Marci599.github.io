@@ -8,6 +8,33 @@
 
   Images live in assets/. Clip shapes for the rounded cards are the --shape-* values below.
 */
+/* ==================== Animation timings ====================
+   Change a value here, save, refresh. The script reads the ones marked (JS) from here too.
+*/
+:root {
+  --t-screen-fade: 0.35s; /* black fade between menus (also how long the screen stays black) (JS) */
+  --t-iris: 0.45s; /* circle open / close: main menu <-> Stage World / Stage Pack World, Play / Back (JS) */
+  --t-popup-open: 0.16s; /* search / Edit tags popup growing open (JS) */
+  --t-popup-close: 0.12s; /* ...and shrinking closed (JS) */
+  --t-ui-fade: 0.3s; /* comments <-> emoji list crossfade, other small fades (JS) */
+  --t-bar-slide: 0.3s; /* bottom bar sliding in on the stage details page in comment mode */
+  --t-mod-slide: 0.4s; /* moderator sliding out when you start commenting on the clear screen */
+  --t-jump: 0.22s; /* commenter / moderator jump */
+  --t-list-slide: 0.5s; /* user list panel sliding in / out */
+  --t-card-move: 0.55s; /* player card moving between bubble and list view */
+  --t-card-move-list: 0.5s; /* player card sliding into list view */
+  --t-card-grow: 0.35s; /* player card opening / closing (height) */
+  --t-card-slide: 0.5s; /* player card sliding off screen */
+  --t-tooltip: 0.15s; /* tooltip fade */
+  --t-pulse: 0.3s; /* selection frame pulse (one way) */
+  --t-whistle-shake: 0.45s; /* whistle shake */
+  --t-theme-crossfade: 3s; /* SMB label <-> picture loop */
+  --t-talk: 0.15s; /* commenter mouth open / close (JS) */
+  --t-cursor-blink: 0.25s; /* "_" cursor blink while typing a comment (JS) */
+  --t-comment-cycle: 3s; /* clear screen: next comment (JS) */
+  --t-rating-cycle: 1.8s; /* clear screen: next moderator rating (JS) */
+}
+
 :root {
   --shape-card: polygon(
     calc(100% - 5px) 0px,
@@ -345,13 +372,13 @@ body {
   clip-path: var(--shape-list);
   transform: translateX(-127px);
   pointer-events: none;
-  transition: transform 0.5s var(--ei);
+  transition: transform var(--t-list-slide) var(--ei);
   z-index: 1;
 }
 .l #listp {
   transform: none;
   pointer-events: auto;
-  transition: transform 0.5s var(--eo);
+  transition: transform var(--t-list-slide) var(--eo);
 }
 #listp::-webkit-scrollbar {
   display: none;
@@ -407,11 +434,11 @@ body {
   background: rgba(0, 0, 0, 0.45);
   z-index: 2;
   transform: translateX(-127px);
-  transition: transform 0.5s var(--ei);
+  transition: transform var(--t-list-slide) var(--ei);
 }
 .l #lsb {
   transform: none;
-  transition: transform 0.5s var(--eo);
+  transition: transform var(--t-list-slide) var(--eo);
 }
 #lth {
   position: absolute;
@@ -486,28 +513,28 @@ body {
   height: 0;
   pointer-events: none;
   transition:
-    left 0.55s var(--e),
-    width 0.55s var(--e),
-    top 0.35s var(--e),
-    height 0.35s var(--e),
-    transform 0.5s var(--ei);
+    left var(--t-card-move) var(--e),
+    width var(--t-card-move) var(--e),
+    top var(--t-card-grow) var(--e),
+    height var(--t-card-grow) var(--e),
+    transform var(--t-card-slide) var(--ei);
 }
 #card.open {
   pointer-events: auto;
   transition:
-    left 0.55s var(--e),
-    width 0.55s var(--e),
-    top 0.35s var(--e),
-    height 0.35s var(--e),
-    transform 0.5s var(--eo);
+    left var(--t-card-move) var(--e),
+    width var(--t-card-move) var(--e),
+    top var(--t-card-grow) var(--e),
+    height var(--t-card-grow) var(--e),
+    transform var(--t-card-slide) var(--eo);
 }
 #card.side.open {
   transition:
-    left 0.5s var(--eo),
-    width 0.5s var(--eo),
-    top 0.35s var(--e),
-    height 0.35s var(--e),
-    transform 0.5s var(--eo);
+    left var(--t-card-move-list) var(--eo),
+    width var(--t-card-move-list) var(--eo),
+    top var(--t-card-grow) var(--e),
+    height var(--t-card-grow) var(--e),
+    transform var(--t-card-slide) var(--eo);
 }
 #card.center {
   left: 65px;
@@ -603,7 +630,7 @@ body {
   bottom: 0;
   box-sizing: border-box;
   padding: 2px 0;
-  transition: opacity 0.3s;
+  transition: opacity var(--t-ui-fade);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
@@ -858,16 +885,16 @@ body {
 .hi:hover::after,
 .hb:hover::after {
   opacity: 0.47;
-  animation: selo 0.3s var(--e) infinite alternate;
+  animation: selo var(--t-pulse) var(--e) infinite alternate;
 }
 .fab:active::after,
 .hi:active::after,
 .hb:active::after {
   opacity: 1;
-  animation: selo 0.3s var(--e) infinite alternate;
+  animation: selo var(--t-pulse) var(--e) infinite alternate;
 }
 #asel::after {
-  animation: selo 0.3s var(--e) infinite alternate;
+  animation: selo var(--t-pulse) var(--e) infinite alternate;
 }
 @keyframes selo {
   from {
@@ -944,7 +971,7 @@ body {
   pointer-events: auto; /* hover shows who liked the profile */
 }
 #whistle.shake {
-  animation: sh 0.45s;
+  animation: sh var(--t-whistle-shake);
 }
 @keyframes sh {
   20% {
@@ -987,14 +1014,14 @@ body {
   opacity: 0;
   visibility: hidden;
   transition:
-    opacity 0.15s,
-    visibility 0s 0.15s;
+    opacity var(--t-tooltip),
+    visibility 0s var(--t-tooltip);
 }
 #tip.on,
 #btip.on {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.15s;
+  transition: opacity var(--t-tooltip);
 }
 
 /* screens */
@@ -1005,7 +1032,7 @@ body {
   background: #000;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s;
+  transition: opacity var(--t-screen-fade);
 }
 #stage.inst *:not(#fade) {
   transition: none !important;
@@ -1272,7 +1299,7 @@ body {
     var(--c4) right bottom/9px 9px no-repeat;
   image-rendering: pixelated;
   opacity: 0.47;
-  animation: selr 0.3s var(--e) infinite alternate;
+  animation: selr var(--t-pulse) var(--e) infinite alternate;
 }
 @keyframes selr {
   from {
@@ -1357,7 +1384,7 @@ body {
   height: 10px;
   background: url(assets/theme-smb-label.png);
   image-rendering: pixelated;
-  animation: xfA 3s linear infinite;
+  animation: xfA var(--t-theme-crossfade) linear infinite;
 }
 .mh {
   position: absolute;
@@ -1367,7 +1394,7 @@ body {
   height: 10px;
   background: url(assets/theme-smb-picture.png);
   image-rendering: pixelated;
-  animation: xfB 3s linear infinite;
+  animation: xfB var(--t-theme-crossfade) linear infinite;
 }
 @keyframes xfA {
   0%,
@@ -1488,7 +1515,7 @@ body {
     var(--c3) left bottom/9px 9px no-repeat,
     var(--c4) right bottom/9px 9px no-repeat;
   image-rendering: pixelated;
-  animation: selr 0.3s var(--e) infinite alternate;
+  animation: selr var(--t-pulse) var(--e) infinite alternate;
 }
 /* stage page */
 #stp {
@@ -1602,7 +1629,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
-  transition: opacity 0.3s;
+  transition: opacity var(--t-ui-fade);
 }
 #cml2::-webkit-scrollbar {
   display: none;
@@ -1657,7 +1684,7 @@ body {
   width: 7px;
   height: 113px;
   background: rgba(0, 0, 0, 0.76);
-  transition: opacity 0.3s;
+  transition: opacity var(--t-ui-fade);
 }
 #cmth {
   position: absolute;
@@ -2029,7 +2056,7 @@ body {
 #cyb.bump .gy,
 #cyb.bump .bub,
 #cyb.bump .sel {
-  animation: bump 0.22s var(--eo);
+  animation: bump var(--t-jump) var(--eo);
 }
 @keyframes bump {
   40% {
@@ -2048,13 +2075,13 @@ body {
 #cyy .gy,
 #cyy .dg,
 #cyy .lab {
-  transition: translate 0.4s var(--eo);
+  transition: translate var(--t-mod-slide) var(--eo);
 }
 #stage.cm #cyy .gy,
 #stage.cm #cyy .dg,
 #stage.cm #cyy .lab {
   translate: 160px 0;
-  transition: translate 0.4s var(--ei);
+  transition: translate var(--t-mod-slide) var(--ei);
 }
 #stage.cm #cllb {
   opacity: 0;
@@ -2066,7 +2093,7 @@ body {
 }
 #pzcards,
 #pznote {
-  transition: opacity 0.3s;
+  transition: opacity var(--t-ui-fade);
 }
 #stage.cm #pzcards,
 #stage.cm #pznote,
@@ -2085,7 +2112,7 @@ body {
 #spdesc,
 #sptags,
 #spch {
-  transition: opacity 0.3s;
+  transition: opacity var(--t-ui-fade);
 }
 #spbar {
   position: absolute;
@@ -2096,11 +2123,11 @@ body {
   background: rgba(0, 0, 0, 0.75);
   pointer-events: none;
   transform: translateY(42px);
-  transition: transform 0.3s var(--ei);
+  transition: transform var(--t-bar-slide) var(--ei);
 }
 #stage.cm #spbar {
   transform: none;
-  transition: transform 0.3s var(--eo);
+  transition: transform var(--t-bar-slide) var(--eo);
 }
 #cmtip {
   position: absolute;
@@ -2133,7 +2160,7 @@ body {
     var(--c3) left bottom/9px 9px no-repeat,
     var(--c4) right bottom/9px 9px no-repeat;
   image-rendering: pixelated;
-  animation: selo 0.3s var(--e) infinite alternate;
+  animation: selo var(--t-pulse) var(--e) infinite alternate;
 }
 #stage.cm #cyb .sel {
   display: block;
@@ -2155,12 +2182,12 @@ body {
   top: 77px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s;
+  transition: opacity var(--t-ui-fade);
 }
 #stage.cm #emo {
   opacity: 1;
   pointer-events: auto;
-  animation: emoIn 0.3s; /* fades in on every screen, also where the comment layer was just shown */
+  animation: emoIn var(--t-ui-fade); /* fades in on every screen, also where the comment layer was just shown */
 }
 @keyframes emoIn {
   from {
@@ -2171,7 +2198,7 @@ body {
   top: 104px;
 }
 #cllb {
-  transition: opacity 0.3s;
+  transition: opacity var(--t-ui-fade);
 }
 #emo .et {
   position: absolute;
@@ -2554,8 +2581,7 @@ body {
 #stage.k #stp {
   background: #203050;
 }
-#stage.k #whash,
-#stage.k #wsort {
+#stage.k #whash {
   display: none;
 }
 #stage.k #wmy {
@@ -2596,8 +2622,14 @@ body {
   display: none;
   --n: url(assets/btn-restart.png);
 }
-#stage.k #sprst {
-  display: block;
+#stage.k #stp.pstarted #sprst {
+  display: block; /* New game only once the pack is In progress / Completed */
+}
+#stage.k #stp:not(.pstarted) #splike {
+  left: 68px;
+}
+#stage.k #stp:not(.pstarted) #spcom {
+  left: 96px;
 }
 #stage.k #spghost,
 #stage.k #spdel,
@@ -2675,11 +2707,11 @@ body {
   left: 187px;
   top: 56px;
 }
-#stage.cmg .fab:not(#back) {
+#stage.cm.cmg .fab:not(#back) {
   display: none;
 }
-#stage.cmg #card .ccm,
-#stage.cmg #card .ccsb {
+#stage.cm.cmg #card .ccm,
+#stage.cm.cmg #card .ccsb {
   opacity: 0;
   pointer-events: none;
 }
@@ -2742,7 +2774,7 @@ body {
     var(--c3) left bottom/9px 9px no-repeat,
     var(--c4) right bottom/9px 9px no-repeat;
   image-rendering: pixelated;
-  animation: selr 0.3s var(--e) infinite alternate;
+  animation: selr var(--t-pulse) var(--e) infinite alternate;
 }
 #lhov::after {
   opacity: 0.47;
@@ -2793,4 +2825,81 @@ body {
 .wr .pst *,
 .lr * {
   pointer-events: none;
+}
+
+/* tab hover mushroom (player card tabs, Local play tabs) */
+#tmush {
+  position: absolute;
+  z-index: 26;
+  width: 8px;
+  height: 9px;
+  background: var(--mush);
+  image-rendering: pixelated;
+  display: none;
+}
+
+/* ==================== Stage World sort header + sort popup ==================== */
+.wsi {
+  position: relative;
+  display: block;
+}
+.wsi .m {
+  position: absolute; /* hover mushroom, separately for the arrow and the sort name */
+  left: -10px;
+  top: -1px;
+  width: 8px;
+  height: 9px;
+  background: var(--mush);
+  image-rendering: pixelated;
+  opacity: 0;
+}
+@media (hover: hover) {
+  .wsi:hover .m {
+    opacity: 1;
+  }
+}
+#wst {
+  display: block;
+  cursor: pointer;
+}
+/* position and size are set in script.js (const SOL) */
+#sod {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  background: rgba(0, 0, 0, 0.75);
+}
+#sod.on {
+  display: block;
+}
+#sod.closing {
+  background: transparent;
+  pointer-events: none;
+}
+#sod.closing .fab {
+  visibility: hidden;
+}
+#soc {
+  position: absolute;
+  image-rendering: pixelated;
+}
+#sob {
+  position: absolute;
+  visibility: hidden;
+}
+#sob.on {
+  visibility: visible;
+}
+#sob .sfi.cur .m {
+  opacity: 0.45; /* the sort in use */
+}
+@media (hover: hover) {
+  #sob .sfi.cur:hover .m {
+    opacity: 1;
+  }
+}
+#socan {
+  left: 8px;
+  --n: url(assets/btn-back.png);
 }

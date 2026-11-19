@@ -19,3 +19,8 @@ The Stage World search dialog layout values are in `script.js` under `const SFL`
 
 ## Useful URL hashes
 `#main`, `#users`, `#stages`, `#your-profile`, `#stage-world`, `#world-stage-0`, `#play-stage-0`, `#clear-stage-0`
+
+## Animation timings
+All animation speeds are at the top of `style.css`, in the `:root` block under "Animation timings"
+(e.g. `--t-iris: 0.45s;`). Change a value, save, refresh. The ones marked (JS) are also read by the script,
+so one edit changes both.

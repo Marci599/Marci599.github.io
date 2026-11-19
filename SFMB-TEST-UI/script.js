@@ -4,6 +4,9 @@
     TOP = 5,
     BOT = 248;
   const $ = (id) => document.getElementById(id);
+  // animation timings live in style.css (":root" block "Animation timings"); this reads one in ms
+  const T = (name) =>
+    parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--t-" + name)) * 1000;
   const FD = {
     n: { c: 8, sp: 7, off: {}, src: FONT_N },
     s: { c: 6, sp: 6, off: { 103: -2, 112: -2, 113: -2, 121: -1 }, src: FONT_S },
@@ -590,8 +593,8 @@
       $("fade").style.opacity = 0;
       setTimeout(() => {
         busy = false;
-      }, 350);
-    }, 350);
+      }, T("screen-fade"));
+    }, T("screen-fade"));
   }
   $("hi1").addEventListener("click", () => go("gal"));
   $("back").addEventListener("click", () => {
@@ -698,7 +701,7 @@
         d.appendChild(e);
         return e;
       };
-      const ts = visTags(w.tags)
+      const ts = textTags(w.tags)
         .map((t) => String.fromCharCode(127) + t)
         .join(" ");
       // right side, line 1: tags; line 2: (status + level count +) icons + SMB
@@ -1586,6 +1589,8 @@
   ]; // small icons left of the difficulty badge
   const tagClash = (a, b) => a !== b && TAG_EXCL.some((g) => g.includes(a) && g.includes(b));
   const visTags = (tags) => tags.filter((t) => !TAG_HIDDEN.includes(t));
+  // tags shown as text in lists / details: PixelArtX, Custom life and Custom enemy show as icons instead
+  const textTags = (tags) => visTags(tags).filter((t) => !TAG_ICONS.some(([x]) => x === t));
   function fixTags(tags, title) {
     const out = [];
     tags.forEach((t) => {
@@ -1791,6 +1796,9 @@
         i,
         title: x[0],
         tags: fixTags(x[1], x[0]),
+        up: 1795000000000 - i * 31 * 3600000, // upload time
+        // update time: the upload time, or later for stages their creator updated
+        upd: 1795000000000 - i * 31 * 3600000 + (i % 4 === 1 ? ((i * 37) % 40) + 1 : 0) * 86400000,
         dl: x[2],
         pct: Math.round((Wn / T) * 100),
         win: Wn,
@@ -1874,6 +1882,8 @@
         clr: [],
         el: null,
         stEl: null,
+        up: 1795000000000 - i * 53 * 3600000, // upload time
+        upd: 1795000000000 - i * 53 * 3600000 + (i % 3 === 1 ? ((i * 29) % 30) + 1 : 0) * 86400000, // update time
       });
       const P = PROWS[PROWS.length - 1],
         sample = (n, pool) => {
@@ -2049,7 +2059,7 @@
     {
       const by = mk("by"),
         tg = mk("tg"),
-        ts = visTags(w.tags)
+        ts = textTags(w.tags)
           .map((t) => String.fromCharCode(127) + t)
           .join(" ");
       by.innerHTML = tg.innerHTML = '<div class="n"></div><div class="s"></div>';
@@ -2073,10 +2083,10 @@
     wl.innerHTML = "";
     let rows;
     if (PK) {
-      rows = PROWS.filter((p) => pkMatch(p) && (!fMyP || p.u === U[0]));
+      rows = sortRows(PROWS).filter((p) => pkMatch(p) && (!fMyP || p.u === U[0]));
       tx($("wttl"), "Stage Pack World (" + rows.length + ")", "n", "#fff");
     } else {
-      rows = (wAsc ? [...WROWS].reverse() : WROWS).filter(
+      rows = sortRows(WROWS).filter(
         (w) => sfMatch(w) && (!fMy || w.u === U[0]) && (!fHash || w.title.includes("#")),
       );
       tx($("wttl"), "Stage World (" + rows.length + ")", "n", "#fff");
@@ -2157,17 +2167,42 @@
     }
     placeHov();
   });
+  // ---- Stage World sorting: the arrow flips the direction, "Upload time" opens the sort popup
+  const SORTS = [
+    ["Upload time", (w) => w.up],
+    ["Update time", (w) => w.upd],
+    ["Likes", (w) => w.likes + (w.liked ? 1 : 0)],
+    ["Clear rate", (w) => w.win / (w.win + w.lose)],
+    ["Download count", (w) => w.dl],
+    ["Developer's rating", (w) => (w.rate === "?" ? -1 : +w.rate)],
+  ];
+  // stage packs have no clear rate
+  const PSORTS = SORTS.filter(([n]) => n !== "Clear rate");
+  const sorts = () => (PK ? PSORTS : SORTS);
+  let wSort = 0;
+  function sortRows(list) {
+    const key = sorts()[wSort][1];
+    const out = [...list].sort((a, b) => key(b) - key(a) || a.i - b.i); // highest first, arrow down
+    return wAsc ? out.reverse() : out;
+  }
+  function setSort(k) {
+    wSort = k;
+    tx($("wst"), sorts()[k][0], "n", "#fff");
+    buildWorld();
+  }
   function resetWorld() {
     selW = null;
     hovRow = null;
     placeHov();
     wAsc = false;
     $("warr").classList.remove("up");
+    wSort = 0;
+    tx($("wst"), sorts()[0][0], "n", "#fff");
     buildWorld();
   }
   FQ.push(() => {
     tx($("warr"), String.fromCharCode(166), "n", "#fff");
-    tx($("wst"), "Upload time", "n", "#fff");
+    tx($("wst"), sorts()[wSort][0], "n", "#fff");
     buildWorld();
   });
   $("warr").addEventListener("click", () => {
@@ -2214,8 +2249,6 @@
     badgeGap: 6, // horizontal gap between difficulty badges
     labelGap: 6, // gap after a row label
     checkGap: 1, // gap between a check mark and its label
-    openMs: 160, // grow-out time
-    closeMs: 120, // shrink-back time
   };
   const SF_BG = "#003256", // dialog background
     SF_OFF = "#00223b"; // colour of an unticked check mark
@@ -2537,7 +2570,7 @@
       sfBlink = !sfBlink;
       sfRefresh();
     }
-  }, 250);
+  }, T("cursor-blink"));
   function sfAnimate(from, to, ms, ease, done) {
     cancelAnimationFrame(sfAnim);
     const t0 = performance.now();
@@ -2563,7 +2596,7 @@
     sfAnimate(
       4,
       SFL.height,
-      SFL.openMs,
+      T("popup-open"),
       (k) => 1 - Math.pow(1 - k, 3),
       () => {
         sfb.classList.add("on");
@@ -2581,7 +2614,7 @@
     sfAnimate(
       SFL.height,
       4,
-      SFL.closeMs,
+      T("popup-close"),
       (k) => k * k * k,
       () => {
         sfd.classList.remove("on", "closing");
@@ -2624,6 +2657,94 @@
   });
   $("sfgo").addEventListener("click", sfApply);
   $("wsrch").addEventListener("click", sfShow);
+  // ---- sort popup ("Choose sort option" from the game, without title; Back is a round button below)
+  const SOL = {
+    left: 102, // popup position and width as in the game (the height fits the options)
+    width: 218,
+    padTop: 8, // space above the first option
+    padX: 16, // left edge of the options (the mushroom sits 12px left)
+    line: 16, // row height
+  };
+  const sod = $("sod"),
+    soc = $("soc"),
+    sob = $("sob");
+  const SOX = { items: [], refresh: () => SOX.items.forEach((it) => it.upd()) };
+  let soOpen = false,
+    soAnim = 0,
+    soH = 0,
+    soTop = 0;
+  function soBuild() {
+    sob.textContent = "";
+    SOX.items = [];
+    sorts().forEach(([label], k) => {
+      const d = sfItem(
+        sob,
+        SOL.padX,
+        SOL.padTop + k * SOL.line,
+        (b) => sfText(b, label),
+        () => {
+          setSort(k);
+          soClose();
+        },
+        null,
+        SOX,
+      );
+      d.classList.toggle("cur", k === wSort); // current option: dim mushroom
+    });
+    soH = SOL.padTop * 2 + sorts().length * SOL.line;
+    soTop = Math.round(9 + (205 - soH) / 2);
+    sob.style.left = soc.style.left = SOL.left + "px";
+    sob.style.top = soTop + "px";
+    sob.style.width = SOL.width + "px";
+    sob.style.height = soH + "px";
+  }
+  function soAnimate(from, to, ms, ease, done) {
+    cancelAnimationFrame(soAnim);
+    const t0 = performance.now();
+    const step = (now) => {
+      const k = Math.min(1, (now - t0) / ms);
+      drawFrame(soc, SOL.width, from + (to - from) * ease(k), soTop, soH);
+      if (k < 1) soAnim = requestAnimationFrame(step);
+      else if (done) done();
+    };
+    soAnim = requestAnimationFrame(step);
+  }
+  function soShow() {
+    if (soOpen || sfOpen || !fReady) return;
+    soOpen = true;
+    showBtip(null);
+    soBuild();
+    sod.classList.remove("closing");
+    sod.classList.add("on");
+    sob.classList.remove("on");
+    drawFrame(soc, SOL.width, 4, soTop, soH);
+    soAnimate(
+      4,
+      soH,
+      T("popup-open"),
+      (k) => 1 - Math.pow(1 - k, 3),
+      () => sob.classList.add("on"),
+    );
+  }
+  function soClose() {
+    if (!soOpen) return;
+    soOpen = false;
+    showBtip(null);
+    sob.classList.remove("on");
+    sod.classList.add("closing");
+    soAnimate(
+      soH,
+      4,
+      T("popup-close"),
+      (k) => k * k * k,
+      () => sod.classList.remove("on", "closing"),
+    );
+  }
+  $("wst").addEventListener("click", soShow);
+  $("socan").addEventListener("click", soClose);
+  addEventListener("keydown", (e) => {
+    if (soOpen && e.key === "Escape") soClose();
+  });
   addEventListener("keydown", (e) => {
     if (sfOpen && e.key === "Escape" && !sfEdit) sfCancel();
   });
@@ -2761,10 +2882,11 @@
     tx($("spver"), "Version 1", "n", w.pack ? "#fff" : "#a0a0a0");
     if (w.pack) tx($("splv"), w.levels + (w.levels === 1 ? " level" : " levels"), "n", "#fff");
     $("spplay").dataset.tip = w.pack ? (w.status ? "Continue" : "Start") : "Play";
+    $("stp").classList.toggle("pstarted", !!(w.pack && w.status));
     tx(q($("spdesc"), "t"), w.desc, "n", "#fff", null, 1, 267);
     const tg = $("sptags");
     tg.innerHTML = "";
-    visTags(w.tags).forEach((t) => {
+    textTags(w.tags).forEach((t) => {
       const d = document.createElement("div");
       tx(d, C(127) + t, "n", "#e0e0e0", null, 1, 421 - 304 - 8); // wraps at the screen edge
       tg.appendChild(d);
@@ -2801,6 +2923,10 @@
       exitComment(false);
       return;
     }
+    leaveStagePage();
+  });
+  // stage / pack details -> back to the list, instantly
+  function leaveStagePage() {
     showBtip(null);
     stage.classList.remove("p");
     stage.classList.add("w");
@@ -2809,7 +2935,7 @@
       placeSel();
     }, 0);
     syncHash();
-  });
+  }
   $("splike").addEventListener("click", () => {
     const w = selW;
     if (!w) return;
@@ -2828,8 +2954,6 @@
     cols: [16, 140, 263], // x of the three tag columns inside the popup
     rowTop: 14, // y of the first row inside the popup
     line: 16, // row height
-    openMs: 160,
-    closeMs: 120,
   };
   const TG_LOCKED = TAG_LOCKED;
   const tgd = $("tgd"),
@@ -2906,7 +3030,7 @@
     tgAnimate(
       4,
       TGL.height,
-      TGL.openMs,
+      T("popup-open"),
       (k) => 1 - Math.pow(1 - k, 3),
       () => tgb.classList.add("on"),
     );
@@ -2920,7 +3044,7 @@
     tgAnimate(
       TGL.height,
       4,
-      TGL.closeMs,
+      T("popup-close"),
       (k) => k * k * k,
       () => tgd.classList.remove("on", "closing"),
     );
@@ -2961,7 +3085,7 @@
     irisR(RMAX);
     iris.style.display = "block";
     anim(
-      450,
+      T("iris"),
       (p) => irisR(RMAX * Math.pow(1 - p, 3)),
       () => {
         const f = $("fade");
@@ -2979,7 +3103,7 @@
         f.style.opacity = 0;
         setTimeout(() => {
           busy = false;
-        }, 350);
+        }, T("screen-fade"));
       },
     );
   }
@@ -2998,14 +3122,14 @@
       f.style.transition = "";
       syncHash();
       anim(
-        450,
+        T("iris"),
         (p) => irisR(RMAX * p * p * p),
         () => {
           iris.style.display = "none";
           busy = false;
         },
       );
-    }, 350);
+    }, T("screen-fade"));
   }
   // the stage being played: the selected stage, or the next stage of the selected stage pack
   let playW = null;
@@ -3047,15 +3171,20 @@
       exitComment(false);
       return;
     }
+    leavePlay();
+  });
+  // pause / clear screen -> back to the stage (or pack) details with the circle opening
+  function leavePlay() {
     if (busy) return;
+    stopCycle();
     busy = true;
     setIC([W / 2, 131.5]);
     irisOpen(() => {
       fillStage(selW);
-      stage.classList.remove("z");
+      stage.classList.remove("z", "c");
       stage.classList.add("p");
     });
-  });
+  }
   $("pzlike").addEventListener("click", () => {
     const w = playW;
     if (!w) return;
@@ -3173,14 +3302,7 @@
       return;
     }
     if (busy || !selW) return;
-    busy = true;
-    stopCycle();
-    setIC([W / 2, 131.5]);
-    irisOpen(() => {
-      fillStage(selW);
-      stage.classList.remove("c");
-      stage.classList.add("p");
-    });
+    leavePlay();
   });
   $("clre").addEventListener("click", () => {
     if (busy || !playW) return;
@@ -3245,7 +3367,7 @@
     {
       const g = q(bl, "gy");
       let n = 0;
-      cyT.push(setInterval(() => g.classList.toggle("talk", n++ % 2 === 0), 150));
+      cyT.push(setInterval(() => g.classList.toggle("talk", n++ % 2 === 0), T("talk")));
     }
     const showC = () => {
       const c = cm[ci];
@@ -3274,11 +3396,11 @@
     };
     if (cm.length) {
       showC();
-      if (cm.length > 1) cyT.push(setInterval(showC, 3000));
+      if (cm.length > 1) cyT.push(setInterval(showC, T("comment-cycle")));
     }
     if (rt.length) {
       showR();
-      if (rt.length > 1) cyT.push(setInterval(showR, 1800));
+      if (rt.length > 1) cyT.push(setInterval(showR, T("rating-cycle")));
     }
   }
   // ---- comment mode (Comment button on the clear screen)
@@ -3346,6 +3468,8 @@
     if (!target || cmOn) return;
     cmT = target;
     cmOn = true;
+    clearTimeout(cmxT);
+    stage.classList.remove("cmx");
     stage.classList.toggle("cmg", !!target.canvas); // player profile, from the user gallery card
     if (target.canvas) tx(q($("emo"), "et"), "Emoji list", "n", "#000", "rgba(0,0,0,.55)");
     else tx(q($("emo"), "et"), "Emoji list", "n", "#fff", "rgba(0,0,0,.55)");
@@ -3358,7 +3482,7 @@
     {
       const g = q(bl, "gy");
       let n = 0;
-      cyT.push(setInterval(() => g.classList.toggle("talk", n++ % 2 === 0), 150));
+      cyT.push(setInterval(() => g.classList.toggle("talk", n++ % 2 === 0), T("talk")));
     }
     const mine = myCm(target);
     cin.value = mine ? mine.t : "";
@@ -3372,6 +3496,7 @@
       cin.setSelectionRange(cin.value.length, cin.value.length);
     }, 0);
   }
+  let cmxT = 0;
   function exitComment(send) {
     if (!cmOn) return;
     cmOn = false;
@@ -3399,9 +3524,12 @@
     const bl = $("cyb");
     bl.style.display = "none";
     stage.classList.remove("cm");
+    // keep the comment layer shown while the emoji list fades out (crossfading with the comments)
+    stage.classList.add("cmx");
+    clearTimeout(cmxT);
+    cmxT = setTimeout(() => stage.classList.remove("cmx", "cmg"), T("ui-fade"));
     if (stage.classList.contains("p")) renderCm(w);
     if (stage.classList.contains("cmg")) {
-      stage.classList.remove("cmg");
       w.com = w.cm.length;
       renderProfCm(card, w);
     }
@@ -3435,7 +3563,7 @@
   setInterval(() => {
     cBlink = !cBlink;
     if (cmOn) setBub(bubTxt());
-  }, 250);
+  }, T("cursor-blink"));
   cin.addEventListener("focus", () => {
     cBlink = true;
     setBub(bubTxt());
@@ -3490,7 +3618,7 @@
     irisR(RMAX);
     iris.style.display = "block";
     anim(
-      450,
+      T("iris"),
       (p) => irisR(RMAX * Math.pow(1 - p, 3)),
       () => {
         const f = $("fade");
@@ -3511,7 +3639,7 @@
         f.style.opacity = 0;
         setTimeout(() => {
           busy = false;
-        }, 350);
+        }, T("screen-fade"));
       },
     );
   }
@@ -3534,14 +3662,14 @@
       f.style.transition = "";
       syncHash();
       anim(
-        450,
+        T("iris"),
         (p) => irisR(RMAX * p * p * p),
         () => {
           iris.style.display = "none";
           busy = false;
         },
       );
-    }, 350);
+    }, T("screen-fade"));
   }
   $("hworld").addEventListener("click", () => goWorld(false));
   $("hpack").addEventListener("click", () => goWorld(true));
@@ -3678,11 +3806,38 @@
     } else if (cur() === target) fin();
     else go(target, fin);
   }
+  // tabs (player cards, Local play): mushroom left of the hovered tab's title, drawn over everything
+  {
+    const tm = $("tmush");
+    let tabEl = null;
+    const place = () => {
+      if (!tabEl || !tabEl.offsetParent) return (tm.style.display = "none");
+      const vr = vw.getBoundingClientRect(),
+        k = vr.width / W,
+        r = tabEl.getBoundingClientRect(),
+        pt = parseFloat(getComputedStyle(tabEl).paddingTop) || 0;
+      tm.style.left = Math.round((r.left - vr.left) / k + 8 - 10) + "px";
+      tm.style.top = Math.round((r.top - vr.top) / k + pt - 1) + "px";
+      tm.style.display = "block";
+    };
+    document.addEventListener("pointerover", (e) => {
+      const t = e.pointerType === "mouse" && e.target.closest ? e.target.closest(".ctab, .tb") : null;
+      if (t !== tabEl) {
+        tabEl = t;
+        place();
+      }
+    });
+    document.addEventListener("click", () => setTimeout(place, 0));
+  }
   addEventListener("hashchange", () => {
     if (applying) {
       applying = false;
       return;
     }
+    if (cmOn) exitComment(false);
+    if (sfOpen) sfClose();
+    if (tgOpen) tgClose();
+    if (soOpen) soClose();
     applyView(location.hash.slice(1), false);
   });
   $("whistle").addEventListener("click", () => setTimeout(syncHash, 0));
