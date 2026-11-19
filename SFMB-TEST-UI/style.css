@@ -1,0 +1,2778 @@
+/*
+  Mario Multiverse menu prototype - styles
+
+  Coordinates: the game screen is 421 x 243 units, one unit = one game pixel.
+  Everything inside #vw uses these units (left/top/width/height in px), and the
+  whole stage is scaled up with CSS zoom to fit the window (press "1" for true 1:1).
+  #vw starts at top:-5px, so "top: 212px" here is y = 212 in the screenshots / 3.
+
+  Images live in assets/. Clip shapes for the rounded cards are the --shape-* values below.
+*/
+:root {
+  --shape-card: polygon(
+    calc(100% - 5px) 0px,
+    calc(100% - 5px) 1px,
+    calc(100% - 3px) 1px,
+    calc(100% - 3px) 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) 3px,
+    calc(100% - 1px) 3px,
+    calc(100% - 1px) 4px,
+    calc(100% - 1px) 4px,
+    calc(100% - 1px) 5px,
+    100% 5px,
+    100% calc(100% - 5px),
+    calc(100% - 1px) calc(100% - 5px),
+    calc(100% - 1px) calc(100% - 4px),
+    calc(100% - 1px) calc(100% - 4px),
+    calc(100% - 1px) calc(100% - 3px),
+    calc(100% - 2px) calc(100% - 3px),
+    calc(100% - 2px) calc(100% - 2px),
+    calc(100% - 3px) calc(100% - 2px),
+    calc(100% - 3px) calc(100% - 1px),
+    calc(100% - 5px) calc(100% - 1px),
+    calc(100% - 5px) 100%,
+    5px 100%,
+    5px calc(100% - 1px),
+    3px calc(100% - 1px),
+    3px calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px calc(100% - 3px),
+    1px calc(100% - 3px),
+    1px calc(100% - 4px),
+    1px calc(100% - 4px),
+    1px calc(100% - 5px),
+    0px calc(100% - 5px),
+    0px 5px,
+    1px 5px,
+    1px 4px,
+    1px 4px,
+    1px 3px,
+    2px 3px,
+    2px 2px,
+    3px 2px,
+    3px 1px,
+    5px 1px,
+    5px 0px
+  );
+  --shape-ct1: polygon(
+    100% 0,
+    100% calc(100% - 3px),
+    4px calc(100% - 3px),
+    4px calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px calc(100% - 1px),
+    1px calc(100% - 1px),
+    1px 100%,
+    0 100%,
+    0px 5px,
+    1px 5px,
+    1px 4px,
+    1px 4px,
+    1px 3px,
+    2px 3px,
+    2px 2px,
+    3px 2px,
+    3px 1px,
+    5px 1px,
+    5px 0px
+  );
+  --shape-ct2: polygon(
+    0 0,
+    calc(100% - 5px) 0px,
+    calc(100% - 5px) 1px,
+    calc(100% - 3px) 1px,
+    calc(100% - 3px) 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) 3px,
+    calc(100% - 1px) 3px,
+    calc(100% - 1px) 4px,
+    calc(100% - 1px) 4px,
+    calc(100% - 1px) 5px,
+    100% 5px,
+    100% 100%,
+    calc(100% - 1px) 100%,
+    calc(100% - 1px) calc(100% - 1px),
+    calc(100% - 2px) calc(100% - 1px),
+    calc(100% - 2px) calc(100% - 2px),
+    calc(100% - 4px) calc(100% - 2px),
+    calc(100% - 4px) calc(100% - 3px),
+    0 calc(100% - 3px)
+  );
+  --shape-list: polygon(
+    calc(100% - 5px) 0px,
+    calc(100% - 5px) 1px,
+    calc(100% - 3px) 1px,
+    calc(100% - 3px) 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) 3px,
+    calc(100% - 1px) 3px,
+    calc(100% - 1px) 4px,
+    calc(100% - 1px) 4px,
+    calc(100% - 1px) 5px,
+    100% 5px,
+    100% calc(100% - 5px),
+    calc(100% - 1px) calc(100% - 5px),
+    calc(100% - 1px) calc(100% - 4px),
+    calc(100% - 1px) calc(100% - 4px),
+    calc(100% - 1px) calc(100% - 3px),
+    calc(100% - 2px) calc(100% - 3px),
+    calc(100% - 2px) calc(100% - 2px),
+    calc(100% - 3px) calc(100% - 2px),
+    calc(100% - 3px) calc(100% - 1px),
+    calc(100% - 5px) calc(100% - 1px),
+    calc(100% - 5px) 100%,
+    5px 100%,
+    5px calc(100% - 1px),
+    3px calc(100% - 1px),
+    3px calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px calc(100% - 3px),
+    1px calc(100% - 3px),
+    1px calc(100% - 4px),
+    1px calc(100% - 4px),
+    1px calc(100% - 5px),
+    0px calc(100% - 5px),
+    0px 5px,
+    1px 5px,
+    1px 4px,
+    1px 4px,
+    1px 3px,
+    2px 3px,
+    2px 2px,
+    3px 2px,
+    3px 1px,
+    5px 1px,
+    5px 0px
+  );
+  --shape-sbx: polygon(
+    calc(100% - 2px) 0px,
+    calc(100% - 2px) 1px,
+    calc(100% - 1px) 1px,
+    calc(100% - 1px) 2px,
+    100% 2px,
+    100% calc(100% - 2px),
+    calc(100% - 1px) calc(100% - 2px),
+    calc(100% - 1px) calc(100% - 1px),
+    calc(100% - 2px) calc(100% - 1px),
+    calc(100% - 2px) 100%,
+    2px 100%,
+    2px calc(100% - 1px),
+    1px calc(100% - 1px),
+    1px calc(100% - 2px),
+    0px calc(100% - 2px),
+    0px 2px,
+    1px 2px,
+    1px 1px,
+    2px 1px,
+    2px 0px
+  );
+  --shape-sbxf: polygon(
+    calc(100% - 1px) 0px,
+    calc(100% - 1px) 1px,
+    100% 1px,
+    100% calc(100% - 1px),
+    calc(100% - 1px) calc(100% - 1px),
+    calc(100% - 1px) 100%,
+    1px 100%,
+    1px calc(100% - 1px),
+    0px calc(100% - 1px),
+    0px 1px,
+    1px 1px,
+    1px 0px
+  );
+  --shape-spb: polygon(
+    100% 0px,
+    100% calc(100% - 5px),
+    calc(100% - 1px) calc(100% - 5px),
+    calc(100% - 1px) calc(100% - 4px),
+    calc(100% - 1px) calc(100% - 4px),
+    calc(100% - 1px) calc(100% - 3px),
+    calc(100% - 2px) calc(100% - 3px),
+    calc(100% - 2px) calc(100% - 2px),
+    calc(100% - 3px) calc(100% - 2px),
+    calc(100% - 3px) calc(100% - 1px),
+    calc(100% - 5px) calc(100% - 1px),
+    calc(100% - 5px) 100%,
+    5px 100%,
+    5px calc(100% - 1px),
+    3px calc(100% - 1px),
+    3px calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px calc(100% - 3px),
+    1px calc(100% - 3px),
+    1px calc(100% - 4px),
+    1px calc(100% - 4px),
+    1px calc(100% - 5px),
+    0px calc(100% - 5px),
+    0px 0px
+  );
+  --shape-tb1: polygon(
+    100% 0px,
+    100% 100%,
+    0px 100%,
+    0px 5px,
+    1px 5px,
+    1px 4px,
+    1px 4px,
+    1px 3px,
+    2px 3px,
+    2px 2px,
+    3px 2px,
+    3px 1px,
+    5px 1px,
+    5px 0px
+  );
+  --shape-tb2: polygon(
+    calc(100% - 5px) 0px,
+    calc(100% - 5px) 1px,
+    calc(100% - 3px) 1px,
+    calc(100% - 3px) 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) 3px,
+    calc(100% - 1px) 3px,
+    calc(100% - 1px) 4px,
+    calc(100% - 1px) 4px,
+    calc(100% - 1px) 5px,
+    100% 5px,
+    100% 100%,
+    0px 100%,
+    0px 0px
+  );
+}
+/* Layout units are game pixels (art is 1:1, 421x243). The stage is scaled to fill the window; motion stays smooth (sub-pixel). */
+:root {
+  color-scheme: dark;
+  --e: cubic-bezier(0.65, 0, 0.35, 1);
+  --ei: cubic-bezier(0.32, 0, 0.67, 0);
+  --eo: cubic-bezier(0.33, 1, 0.68, 1);
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #000;
+  overflow: hidden;
+}
+body {
+  font-family: monospace;
+  color: #fff;
+}
+#wrap {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#stage {
+  --std: url(assets/standee.png);
+  --coin: url(assets/coin.png);
+  --mush: url(assets/mushroom.png);
+  --flags: url(assets/flags.png);
+  position: relative;
+  flex: none;
+  width: 421px;
+  height: 243px;
+  background: #333;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  --c1: url(assets/frame-corner-1.png);
+  --c2: url(assets/frame-corner-2.png);
+  --c3: url(assets/frame-corner-3.png);
+  --c4: url(assets/frame-corner-4.png);
+  --stat: url(assets/stat-icons.png);
+}
+#vw {
+  position: absolute;
+  left: 0;
+  top: -5px;
+  width: 421px;
+  height: 253px;
+  font-size: 0;
+  line-height: 0;
+}
+
+/* ==================== User gallery (bouncing avatars + list) ==================== */
+#bg2 {
+  position: absolute;
+  inset: -90px;
+  background: url(assets/bg-gallery.png) 0 0/90px 90px;
+  image-rendering: pixelated;
+  animation: scr 18s linear infinite;
+}
+@keyframes scr {
+  to {
+    transform: translate(90px, -90px);
+  }
+}
+.bt {
+  display: inline-block;
+  vertical-align: top;
+  image-rendering: pixelated;
+}
+#title {
+  position: absolute;
+  left: 16px;
+  top: 17px;
+  z-index: 4;
+  pointer-events: none;
+}
+#balls {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 421px;
+  height: 253px;
+  z-index: 2;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+/* user list */
+#listp {
+  position: absolute;
+  left: 8px;
+  top: 33px;
+  width: 97px;
+  height: 183px;
+  box-sizing: border-box;
+  padding: 3px 0;
+  background: rgba(0, 0, 0, 0.75);
+  overflow-y: auto;
+  scrollbar-width: none;
+  clip-path: var(--shape-list);
+  transform: translateX(-127px);
+  pointer-events: none;
+  transition: transform 0.5s var(--ei);
+  z-index: 1;
+}
+.l #listp {
+  transform: none;
+  pointer-events: auto;
+  transition: transform 0.5s var(--eo);
+}
+#listp::-webkit-scrollbar {
+  display: none;
+}
+.row {
+  height: 18px;
+  display: flex;
+  align-items: center;
+  padding-left: 3px;
+  cursor: pointer;
+}
+.row .slot {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.row.hid {
+  display: none;
+}
+.nm {
+  position: absolute;
+  left: 22px;
+  top: 0;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+.nm.gone {
+  display: none;
+}
+.nm .y {
+  display: none;
+}
+.nm.sel .y {
+  display: block;
+}
+.nm.sel .w {
+  display: none;
+}
+.empty {
+  padding: 8px 6px;
+  display: none;
+}
+#lsb {
+  position: absolute;
+  left: 106px;
+  top: 33px;
+  width: 7px;
+  height: 183px;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 2;
+  transform: translateX(-127px);
+  transition: transform 0.5s var(--ei);
+}
+.l #lsb {
+  transform: none;
+  transition: transform 0.5s var(--eo);
+}
+#lth {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #c4c2c3;
+  cursor: pointer;
+}
+
+/* search */
+#sbx {
+  position: absolute;
+  left: 147px;
+  top: 13px;
+  width: 127px;
+  height: 15px;
+  z-index: 7;
+  clip-path: var(--shape-sbx);
+}
+#sbx::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  clip-path: var(--shape-sbx);
+}
+/* the search box shows the mushroom (like other selectable items) instead of an outline */
+#sbm {
+  position: absolute;
+  left: 137px;
+  top: 16px;
+  z-index: 7;
+  width: 8px;
+  height: 9px;
+  background: var(--mush);
+  image-rendering: pixelated;
+  opacity: 0;
+}
+#sbx:hover + #sbm,
+#sbx:focus-within + #sbm {
+  opacity: 1;
+}
+#search {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 6px;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  font: 8px monospace;
+  outline: 0;
+}
+#sqc {
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  z-index: 2;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+/* player card */
+#card {
+  position: absolute;
+  z-index: 5;
+  overflow: hidden;
+  height: 0;
+  pointer-events: none;
+  transition:
+    left 0.55s var(--e),
+    width 0.55s var(--e),
+    top 0.35s var(--e),
+    height 0.35s var(--e),
+    transform 0.5s var(--ei);
+}
+#card.open {
+  pointer-events: auto;
+  transition:
+    left 0.55s var(--e),
+    width 0.55s var(--e),
+    top 0.35s var(--e),
+    height 0.35s var(--e),
+    transform 0.5s var(--eo);
+}
+#card.side.open {
+  transition:
+    left 0.5s var(--eo),
+    width 0.5s var(--eo),
+    top 0.35s var(--e),
+    height 0.35s var(--e),
+    transform 0.5s var(--eo);
+}
+#card.center {
+  left: 65px;
+  top: 33px;
+  width: 292px;
+  height: 183px;
+}
+#card.side {
+  left: 122px;
+  top: 33px;
+  width: 292px;
+  height: 183px;
+}
+#card:not(.open) {
+  transform: translateX(367px);
+}
+#card > * {
+  visibility: hidden;
+}
+#card.ready > * {
+  visibility: visible;
+}
+[data-pc] .cbg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 18px;
+  bottom: 0;
+  background: #efe5c8;
+  clip-path: var(--shape-card);
+}
+[data-pc] .ctb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 17px;
+}
+
+/* ==================== Player card ==================== */
+.ctab {
+  position: absolute;
+  bottom: -3px;
+  box-sizing: border-box;
+  height: 16px;
+  padding: 3px 0 0 8px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+}
+.ctab.on {
+  height: 20px;
+  padding-top: 5px;
+}
+.ctab.ct1 {
+  left: 0;
+  width: 145px;
+  clip-path: var(--shape-ct1);
+}
+.ctab.ct2 {
+  left: 146px;
+  width: 146px;
+  clip-path: var(--shape-ct2);
+}
+.ctab.ct3 {
+  display: none;
+}
+/* the user list card has a third tab: Comments (n) */
+[data-pc] .ctab.ct1 {
+  width: 96px;
+}
+[data-pc] .ctab.ct2 {
+  left: 97px;
+  width: 97px;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3px), 0 calc(100% - 3px)); /* same bottom as the outer tabs */
+}
+[data-pc] .ctab.ct3 {
+  display: flex;
+  left: 195px;
+  width: 97px;
+  clip-path: var(--shape-ct2);
+}
+[data-pc].t3 .cpage {
+  display: none;
+}
+[data-pc] .ccm {
+  position: absolute; /* scrolls over the whole cream area, rows padded like the stage comment list */
+  left: -12px; /* avatar 8px in */
+  top: 18px;
+  right: 10px;
+  bottom: 0;
+  box-sizing: border-box;
+  padding: 2px 0;
+  transition: opacity 0.3s;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  display: none;
+}
+[data-pc] .ccm::-webkit-scrollbar {
+  display: none;
+}
+[data-pc] .ccm::after {
+  content: "";
+  display: block;
+  height: 2px;
+}
+[data-pc].t3 .ccm {
+  display: block;
+}
+[data-pc] .ccsb {
+  position: absolute;
+  right: 3px;
+  top: 21px;
+  width: 7px;
+  height: 159px;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+}
+[data-pc].t3 .ccsb {
+  display: block;
+}
+[data-pc] .ccth {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #c4c2c3;
+  cursor: pointer;
+}
+[data-pc] .cpage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+[data-pc].t2 .cpage {
+  display: none;
+}
+.ca {
+  position: absolute;
+  font-size: 0;
+  line-height: 0;
+}
+[data-pc] .cav {
+  position: absolute;
+  left: 10px;
+  top: 28px;
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+}
+[data-pc] .nmrow {
+  position: absolute;
+  left: 67px;
+  top: 30px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0;
+  line-height: 0;
+}
+.flag {
+  display: block;
+  width: 16px;
+  height: 11px;
+  margin-top: 2px;
+  background: var(--flags) no-repeat;
+  image-rendering: pixelated;
+}
+.ccoin {
+  display: none !important;
+}
+#yid {
+  position: absolute;
+  left: 311px;
+  top: 166px;
+}
+#ycard .ccoin {
+  display: flex !important;
+}
+.coin {
+  display: block;
+  width: 5px;
+  height: 8px;
+  background: var(--coin);
+  image-rendering: pixelated;
+  margin-right: 2px;
+}
+[data-pc] .cbd {
+  left: 67px;
+  top: 52px;
+}
+[data-pc] .cjoin {
+  left: 67px;
+  top: 66px;
+}
+[data-pc] .clbl {
+  left: 10px;
+  top: 81px;
+}
+[data-pc] .cmsg {
+  left: 10px;
+  top: 93px;
+}
+[data-pc] .cexp {
+  left: 10px;
+  top: 166px;
+}
+[data-pc] .clike {
+  right: 10px;
+  top: 153px;
+}
+[data-pc] .cmm {
+  right: 10px;
+  top: 167px;
+}
+[data-pc] .ccoin {
+  left: 10px;
+  top: 153px;
+  align-items: flex-start;
+}
+[data-pc] .cstd {
+  right: 10px;
+  top: 81px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 11px;
+}
+.stdi {
+  display: block;
+  width: 29px;
+  height: 38px;
+  background: var(--std);
+  image-rendering: pixelated;
+}
+[data-pc] .cstat {
+  position: absolute;
+  left: 0;
+  top: 18px;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  box-sizing: border-box;
+  padding: 10px 9px 10px 0;
+  display: none;
+}
+[data-pc] .cstat::-webkit-scrollbar {
+  display: none;
+}
+[data-pc].t2 .cstat {
+  display: block;
+}
+.gg {
+  display: grid;
+  grid-template-columns: repeat(3, 75px);
+  justify-content: center;
+  gap: 5px;
+}
+.sc {
+  position: relative;
+  width: 75px;
+  height: 59px;
+  background-image: var(--stat);
+  background-size: 512px 512px;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+.sc.z {
+  filter: brightness(0.45) saturate(0.6);
+}
+.sc .sn {
+  position: absolute;
+  right: 2px;
+  top: 1px;
+  font-size: 0;
+  line-height: 0;
+  filter: drop-shadow(1px 1px 0 #000);
+}
+[data-pc] .cssb {
+  position: absolute;
+  right: 3px;
+  top: 21px;
+  width: 7px;
+  height: 159px;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+}
+[data-pc].t2 .cssb {
+  display: block;
+}
+[data-pc] .csth {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #c4c2c3;
+  cursor: pointer;
+}
+
+/* buttons + selection frame */
+
+/* ==================== Round buttons ==================== */
+.fab {
+  position: absolute;
+  bottom: 10px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: var(--n) 0 0/100% 100% no-repeat;
+  image-rendering: pixelated;
+  cursor: pointer;
+  z-index: 6;
+}
+.fab::before,
+.hi::before,
+.hb::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  pointer-events: none;
+}
+.fab::after,
+.hi::after,
+.hb::after,
+#asel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    var(--c1) left top/9px 9px no-repeat,
+    var(--c2) right top/9px 9px no-repeat,
+    var(--c3) left bottom/9px 9px no-repeat,
+    var(--c4) right bottom/9px 9px no-repeat;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+.fab::after,
+.hi::after,
+.hb::after {
+  opacity: 0;
+}
+.fab:hover::after,
+.hi:hover::after,
+.hb:hover::after {
+  opacity: 0.47;
+  animation: selo 0.3s var(--e) infinite alternate;
+}
+.fab:active::after,
+.hi:active::after,
+.hb:active::after {
+  opacity: 1;
+  animation: selo 0.3s var(--e) infinite alternate;
+}
+#asel::after {
+  animation: selo 0.3s var(--e) infinite alternate;
+}
+@keyframes selo {
+  from {
+    inset: -0.67px;
+  }
+  to {
+    inset: -2px;
+  }
+}
+#back,
+#sb {
+  left: 8px;
+  --n: url(assets/btn-back.png);
+}
+#whistle {
+  left: 36px; /* next to Back */
+  --n: url(assets/btn-whistle.png);
+}
+#chat {
+  right: 62px; /* left of Like */
+  --n: url(assets/btn-comment.png);
+  display: none;
+}
+#chat:disabled {
+  --n: url(assets/btn-comment-disabled.png);
+}
+.co.ccm #chat {
+  display: block; /* only on the card's Comments tab */
+}
+#ulike {
+  right: 35px;
+  display: none;
+  --n: url(assets/btn-like.png);
+}
+#ulike.on {
+  --n: url(assets/btn-like-on.png);
+}
+.co:not(.mine) #ulike {
+  display: block;
+}
+#ctrl {
+  right: 8px;
+  display: none;
+  --n: url(assets/btn-stages-of-user.png);
+}
+.co #ctrl {
+  display: block;
+}
+#prof {
+  right: 89px;
+  display: none;
+  --n: url(assets/btn-private.png);
+}
+#prof.pub {
+  --n: url(assets/btn-public.png);
+}
+.co.mine #prof {
+  display: block;
+  right: 35px; /* own profile: takes Like's place */
+}
+.co.mine #chat {
+  display: none !important; /* no comment button on your own profile */
+}
+#edit {
+  right: 116px;
+  display: none;
+  --n: url(assets/btn-edit.png);
+}
+.co.mine #edit {
+  display: block;
+  right: 62px; /* own profile: takes Comment's place */
+}
+[data-pc] .clike {
+  pointer-events: auto; /* hover shows who liked the profile */
+}
+#whistle.shake {
+  animation: sh 0.45s;
+}
+@keyframes sh {
+  20% {
+    transform: rotate(-14deg);
+  }
+  40% {
+    transform: rotate(12deg);
+  }
+  60% {
+    transform: rotate(-8deg);
+  }
+  80% {
+    transform: rotate(5deg);
+  }
+}
+#asel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  pointer-events: none;
+  display: none;
+}
+
+/* tooltips */
+
+/* ==================== Tooltips ==================== */
+#tip {
+  position: absolute;
+  z-index: 8;
+  pointer-events: none;
+}
+#btip {
+  position: absolute;
+  z-index: 25;
+  pointer-events: none;
+}
+#tip,
+#btip {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.15s,
+    visibility 0s 0.15s;
+}
+#tip.on,
+#btip.on {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.15s;
+}
+
+/* screens */
+#fade {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s;
+}
+#stage.inst *:not(#fade) {
+  transition: none !important;
+}
+#home {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: #3234dc;
+  opacity: 0;
+  pointer-events: none;
+}
+.h #home {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==================== Main menu ==================== */
+.ho {
+  position: absolute;
+  image-rendering: pixelated;
+  display: block;
+}
+.hi {
+  position: absolute;
+  top: 13px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.hi img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+.hb {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.hb > img,
+.hb > canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  display: block;
+}
+.hpf {
+  position: absolute;
+  background: #101044;
+}
+#hft {
+  position: absolute;
+  left: 35px;
+  top: 228px;
+}
+#yp {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+.y #yp {
+  opacity: 1;
+  pointer-events: auto;
+}
+#ybg {
+  position: absolute;
+  inset: -90px;
+  background: url(assets/bg-profile.png) 0 0/90px 90px;
+  image-rendering: pixelated;
+  animation: scr 18s linear infinite;
+}
+#yttl {
+  position: absolute;
+  left: 16px;
+  top: 17px;
+}
+
+/* ==================== Your profile ==================== */
+#ycard {
+  position: absolute;
+  left: 8px;
+  top: 33px;
+  width: 292px;
+  height: 183px;
+  overflow: hidden;
+}
+#lpp {
+  position: absolute;
+  left: 305px;
+  top: 88px;
+  width: 108px;
+  height: 72px;
+  background: rgba(0, 0, 0, 0.75);
+  clip-path: var(--shape-card);
+}
+#lpp .lpt {
+  position: absolute;
+  left: 6px;
+  top: 7px;
+}
+#lpp .lpbox {
+  position: absolute;
+  left: 6px;
+  top: 20px;
+  width: 96px;
+  height: 46px;
+  background: rgba(0, 0, 0, 0.45);
+  clip-path: var(--shape-card);
+}
+.lpr {
+  position: absolute;
+  left: 2px;
+  width: 100px;
+  height: 14px;
+  cursor: pointer;
+}
+.lpr .t {
+  position: absolute;
+  left: 10px;
+  top: 0;
+}
+.lpr .m {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 8px;
+  height: 9px;
+  background: var(--mush);
+  image-rendering: pixelated;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.lpr .y {
+  display: none;
+}
+.lpr.act .y {
+  display: block;
+}
+.lpr.act .w {
+  display: none;
+}
+.lpr.act .m {
+  opacity: 0.45;
+}
+.lpr:hover .m,
+.lpr.thov .m {
+  opacity: 1;
+}
+#yb {
+  left: 8px;
+  --n: url(assets/btn-back.png);
+}
+#ychat {
+  display: none; /* comments are on the card's Comments tab now */
+  right: 8px;
+  --n: url(assets/btn-comment.png);
+}
+#yeye {
+  right: 35px;
+  --n: url(assets/btn-preview.png);
+}
+#yprof {
+  right: 8px; /* takes the old Likes & comments spot */
+  --n: url(assets/btn-private.png);
+}
+#yprof.pub {
+  --n: url(assets/btn-public.png);
+}
+
+/* ==================== Stage World list ==================== */
+#wld {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(#003256, #356383);
+}
+.w #wld {
+  opacity: 1;
+  pointer-events: auto;
+}
+#wttl {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+}
+#wsort {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+#warr {
+  display: block;
+  cursor: pointer;
+  transform-origin: 50% 45%;
+}
+#warr.up {
+  transform: rotate(180deg);
+}
+#wlp {
+  position: absolute;
+  left: 8px;
+  top: 21px;
+  width: 397px;
+  height: 193px;
+  background: rgba(0, 0, 0, 0.57);
+  clip-path: var(--shape-card);
+}
+#wl {
+  position: absolute;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+#wl::-webkit-scrollbar {
+  display: none;
+}
+.wr {
+  position: relative;
+  height: 32px;
+  cursor: pointer;
+}
+.wr:hover {
+  z-index: 1;
+}
+#whov {
+  position: absolute;
+  left: 0;
+  width: 397px;
+  height: 32px;
+  pointer-events: none;
+  display: none;
+}
+#whov.act::after {
+  opacity: 1;
+}
+#whov::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    var(--c1) left top/9px 9px no-repeat,
+    var(--c2) right top/9px 9px no-repeat,
+    var(--c3) left bottom/9px 9px no-repeat,
+    var(--c4) right bottom/9px 9px no-repeat;
+  image-rendering: pixelated;
+  opacity: 0.47;
+  animation: selr 0.3s var(--e) infinite alternate;
+}
+@keyframes selr {
+  from {
+    inset: 0;
+  }
+  to {
+    inset: -1.33px;
+  }
+}
+.wr .wa {
+  position: absolute;
+  left: 2px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+}
+.wr .ti {
+  position: absolute;
+  left: 20px;
+  top: 4px;
+}
+.wr .by {
+  position: absolute;
+  left: 20px;
+  top: 13px;
+}
+.wr .tg {
+  position: absolute;
+  left: 20px;
+  top: 22px;
+}
+.wr .st {
+  position: absolute;
+  right: 6px;
+  top: 4px;
+}
+.wr .bd {
+  position: absolute;
+  right: 5px;
+  top: 12px;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.bdg {
+  display: block;
+  width: 33px;
+  height: 10px;
+  image-rendering: pixelated;
+}
+.bdg.d0 {
+  background: url(assets/badge-easy.png);
+}
+.bdg.d1 {
+  background: url(assets/badge-normal.png);
+}
+.bdg.d2 {
+  background: url(assets/badge-hard.png);
+}
+.bdg.d3 {
+  background: url(assets/badge-expert.png);
+  width: 34px;
+}
+.bdg.d4 {
+  background: url(assets/badge-hell.png);
+}
+.bdg.d5 {
+  background: url(assets/badge-hellplus.png);
+}
+.thw {
+  position: relative;
+  display: block;
+  width: 26px;
+  height: 10px;
+}
+.thm {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 26px;
+  height: 10px;
+  background: url(assets/theme-smb-label.png);
+  image-rendering: pixelated;
+  animation: xfA 3s linear infinite;
+}
+.mh {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 26px;
+  height: 10px;
+  background: url(assets/theme-smb-picture.png);
+  image-rendering: pixelated;
+  animation: xfB 3s linear infinite;
+}
+@keyframes xfA {
+  0%,
+  58.33% {
+    opacity: 1;
+  }
+  66.67%,
+  91.67% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes xfB {
+  0%,
+  58.33% {
+    opacity: 0;
+  }
+  66.67%,
+  91.67% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+#wsb {
+  position: absolute;
+  left: 406px;
+  top: 21px;
+  width: 7px;
+  height: 193px;
+  background: rgba(0, 0, 0, 0.76);
+}
+#wth {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #c4c2c3;
+  cursor: pointer;
+}
+#wb {
+  left: 8px;
+  --n: url(assets/btn-back.png);
+}
+#wre {
+  left: 36px;
+  --n: url(assets/btn-refresh.png);
+}
+#wmy {
+  right: 64px;
+  --n: url(assets/btn-my-stages.png);
+}
+#whash {
+  right: 36px;
+  --n: url(assets/btn-contest.png);
+}
+#wsrch {
+  right: 8px;
+  --n: url(assets/btn-search.png);
+}
+/* selected Stage World row (last opened stage) */
+.wr:active::before,
+.wr.press::before,
+.wr.sel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+  clip-path: var(--shape-card);
+}
+.wr .by .s,
+.wr .tg .s {
+  display: none;
+}
+.wr.sel .by .s,
+.wr.sel .tg .s,
+.wr:active .by .s,
+.wr:active .tg .s,
+.wr.press .by .s,
+.wr.press .tg .s {
+  display: block;
+}
+.wr.sel .by .n,
+.wr.sel .tg .n,
+.wr:active .by .n,
+.wr:active .tg .n,
+.wr.press .by .n,
+.wr.press .tg .n {
+  display: none;
+}
+#wov {
+  position: absolute;
+  left: 8px;
+  top: 21px;
+  width: 397px;
+  height: 193px;
+  pointer-events: none;
+  z-index: 3;
+  clip-path: inset(-2px -20px);
+}
+#wsel {
+  position: absolute;
+  left: 0;
+  width: 397px;
+  height: 32px;
+  display: none;
+}
+#wsel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    var(--c1) left top/9px 9px no-repeat,
+    var(--c2) right top/9px 9px no-repeat,
+    var(--c3) left bottom/9px 9px no-repeat,
+    var(--c4) right bottom/9px 9px no-repeat;
+  image-rendering: pixelated;
+  animation: selr 0.3s var(--e) infinite alternate;
+}
+/* stage page */
+#stp {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(#003256, #356383);
+}
+.p #stp {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==================== Stage details page ==================== */
+#spttl {
+  position: absolute;
+  left: 8px;
+  top: 13px;
+}
+#spby {
+  position: absolute;
+  left: 16px;
+  top: 21px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+}
+#spby .b {
+  margin-left: 8px;
+  margin-right: 5px;
+}
+#spby .nz {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+#spby .m {
+  position: absolute;
+  left: -10px;
+  top: 3px;
+  width: 8px;
+  height: 9px;
+  background: var(--mush);
+  image-rendering: pixelated;
+  opacity: 0;
+}
+#spby:has(.nz:hover) .m,
+#spby .nz.thov ~ .m {
+  opacity: 1;
+}
+#spby canvas {
+  display: block;
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+}
+#spver {
+  position: absolute;
+  right: 9px;
+  top: 13px;
+}
+.spp {
+  position: absolute;
+}
+.spp::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.76);
+  clip-path: var(--shape-card);
+}
+#spdesc {
+  left: 12px;
+  top: 37px;
+  width: 283px;
+  height: 49px;
+}
+#spdesc .t {
+  position: absolute;
+  left: 8px;
+  top: 5px;
+}
+#sptags {
+  position: absolute;
+  left: 304px;
+  top: 41px;
+}
+
+#spch {
+  position: absolute;
+  left: 8px;
+  top: 88px;
+}
+#spcm {
+  left: 12px;
+  top: 100px;
+  width: 397px;
+  height: 113px;
+}
+#cml2 {
+  position: absolute;
+  left: -12px;
+  top: 0;
+  right: 4px;
+  bottom: 0;
+  box-sizing: border-box;
+  padding: 2px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  transition: opacity 0.3s;
+}
+#cml2::-webkit-scrollbar {
+  display: none;
+}
+#cml2::after {
+  content: "";
+  display: block;
+  height: 2px;
+}
+.cmr {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  padding: 2px 0 0 20px;
+  align-items: flex-start;
+}
+.cmr > canvas {
+  display: block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+}
+.cmr .ct {
+  padding-top: 4px;
+}
+.cmr .nz {
+  position: absolute;
+  left: 20px;
+  top: 2px;
+  height: 16px;
+  cursor: pointer;
+}
+.cmr .m {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  width: 8px;
+  height: 9px;
+  background: var(--mush);
+  image-rendering: pixelated;
+  opacity: 0;
+}
+.cmr:has(.nz:hover) .m,
+.cmr .nz.thov ~ .m {
+  opacity: 1;
+}
+#cmsb {
+  position: absolute;
+  right: -9px;
+  top: 0;
+  width: 7px;
+  height: 113px;
+  background: rgba(0, 0, 0, 0.76);
+  transition: opacity 0.3s;
+}
+#cmth {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #c4c2c3;
+  cursor: pointer;
+}
+#spbd {
+  position: absolute;
+  right: 8px;
+  top: 220px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+#spst {
+  position: absolute;
+  right: 9px;
+  top: 233px;
+}
+#stp .fab {
+  bottom: 11px;
+}
+#spb {
+  left: 12px;
+  --n: url(assets/btn-back.png);
+}
+#spplay {
+  left: 40px;
+  --n: url(assets/btn-play.png);
+}
+#spghost {
+  left: 68px;
+  --n: url(assets/btn-ghost.png);
+}
+#splike {
+  left: 96px;
+  --n: url(assets/btn-like.png);
+}
+#splike.on {
+  --n: url(assets/btn-like-on.png);
+}
+#spcom {
+  left: 124px;
+  --n: url(assets/btn-comment.png);
+}
+#spdel {
+  left: 152px;
+  --n: url(assets/btn-delete.png);
+}
+#spdl {
+  left: 180px;
+  --n: url(assets/btn-download.png);
+}
+#stp:not(.mine) #spdel,
+#stp:not(.mine) #spdl {
+  display: none;
+}
+.fab:disabled {
+  cursor: default;
+}
+.fab:disabled::after {
+  display: none;
+}
+#splike:disabled,
+#pzlike:disabled {
+  --n: url(assets/btn-like-disabled.png);
+}
+#spcom:disabled,
+#pzcom:disabled {
+  --n: url(assets/btn-comment-disabled.png);
+}
+.crh {
+  position: absolute;
+  top: 0;
+  height: 8px;
+}
+/* pause menu */
+
+/* ==================== Pause menu ==================== */
+#pz {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background: #3234dc;
+}
+.z #pz {
+  opacity: 1;
+  pointer-events: auto;
+}
+#pztop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 5px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.75);
+}
+#pzttl {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 13px;
+  display: flex;
+  justify-content: center;
+}
+#pzby {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 29px;
+  display: flex;
+  justify-content: center;
+}
+#pzcards {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 51px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.acard {
+  display: block;
+  width: 34px;
+  height: 42px;
+  background: url(assets/ability-cards.png) no-repeat;
+  image-rendering: pixelated;
+}
+#pzbot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 212px;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+#pz .fab {
+  top: 218px;
+  bottom: auto;
+}
+#pzb {
+  left: 12px;
+  --n: url(assets/btn-back.png);
+}
+#pzcont {
+  left: 40px;
+  --n: url(assets/btn-play.png);
+}
+#pzrst {
+  left: 68px;
+  --n: url(assets/btn-restart.png);
+}
+#pzlike {
+  left: 96px;
+  --n: url(assets/btn-like.png);
+}
+#pzlike.on {
+  --n: url(assets/btn-like-on.png);
+}
+#pzcom {
+  left: 124px;
+  --n: url(assets/btn-comment.png);
+}
+#pzshow {
+  left: 152px;
+  --n: url(assets/btn-showcase.png);
+}
+#pzrec {
+  left: 180px;
+  --n: url(assets/btn-records.png);
+}
+#pzset {
+  left: 208px;
+  --n: url(assets/btn-settings.png);
+}
+#pzrep {
+  left: 236px;
+  --n: url(assets/btn-report.png);
+}
+#pznote {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 120px;
+  font-size: 7px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* ==================== Stage clear screen ==================== */
+#clrm {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background: #3234dc;
+}
+.c #clrm {
+  opacity: 1;
+  pointer-events: auto;
+}
+#clrm .pztop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 5px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.75);
+}
+#clrm .pzb2 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 212px;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+#clttl {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 13px;
+  display: flex;
+  justify-content: center;
+}
+#clby {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 29px;
+  display: flex;
+  justify-content: center;
+}
+.lbr {
+  position: absolute;
+  left: 68px;
+  width: 284px;
+  height: 8px;
+}
+.lbr .o {
+  position: absolute;
+  left: 0;
+}
+.lbr .nm2 {
+  position: absolute;
+  left: 33px;
+}
+.lbr .tm {
+  position: absolute;
+  right: 0;
+}
+#clrm .fab {
+  top: 218px;
+  bottom: auto;
+}
+#cml {
+  position: absolute;
+  inset: 0;
+  z-index: 22;
+  pointer-events: none;
+  clip-path: inset(0 0 41px 0);
+  display: none;
+}
+.c #cml,
+.cm #cml,
+.cmx #cml {
+  display: block;
+}
+
+/* ==================== Commenter (blue) and moderator (yellow) ==================== */
+#cyb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 421px;
+  height: 253px;
+  pointer-events: none;
+}
+#cyb.rise {
+  animation: rise 0.3s var(--eo);
+}
+@keyframes rise {
+  from {
+    transform: translateY(90px);
+  }
+}
+#cyb.sink {
+  animation: sink 0.25s var(--ei) forwards;
+}
+@keyframes sink {
+  to {
+    transform: translateY(90px);
+  }
+}
+#cyb .gy::before,
+#cyy .gy::before,
+#cyb .gy::after,
+#cyy .gy::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--img) 0 0/100% 100%;
+  image-rendering: pixelated;
+}
+#cyb .gy::before,
+#cyy .gy::before {
+  filter: brightness(0);
+  opacity: 0.5;
+  translate: 3px 3px;
+}
+#cyb .gy {
+  position: absolute;
+  left: 54px;
+  top: 134px;
+  width: 70px;
+  height: 78px;
+  --img: url(assets/commenter-idle.png);
+}
+#cyb .gy.talk {
+  --img: url(assets/commenter-talk.png);
+}
+#cyb .bub {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#cyb .lab {
+  position: absolute;
+  left: 89px;
+  top: 203px;
+  transform: translateX(-50%);
+}
+#cyy {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 421px;
+  height: 253px;
+  pointer-events: none;
+}
+#cyy .gy {
+  position: absolute;
+  left: 289px;
+  top: 122px;
+  width: 104px;
+  height: 90px;
+  --img: url(assets/moderator-neutral.png);
+}
+#cyy .gy.happy {
+  --img: url(assets/moderator-happy.png);
+}
+#cyy .dg {
+  position: absolute;
+  left: 316px;
+  top: 127px;
+  transform: translateX(-50%);
+}
+#cyy.bump .gy,
+#cyy.bump .dg,
+#cyb.bump .gy,
+#cyb.bump .bub,
+#cyb.bump .sel {
+  animation: bump 0.22s var(--eo);
+}
+@keyframes bump {
+  40% {
+    transform: translate(var(--bx, 0), -8px);
+  }
+}
+#cyy .dg {
+  --bx: -50%;
+}
+#cyy .lab {
+  position: absolute;
+  left: 341px;
+  top: 203px;
+  transform: translateX(-50%);
+}
+#cyy .gy,
+#cyy .dg,
+#cyy .lab {
+  transition: translate 0.4s var(--eo);
+}
+#stage.cm #cyy .gy,
+#stage.cm #cyy .dg,
+#stage.cm #cyy .lab {
+  translate: 160px 0;
+  transition: translate 0.4s var(--ei);
+}
+#stage.cm #cllb {
+  opacity: 0;
+}
+#stage.cm #clrm .fab:not(#clb),
+#stage.cm #pz .fab:not(#pzb),
+#stage.cm #stp .fab:not(#spb) {
+  display: none;
+}
+#pzcards,
+#pznote {
+  transition: opacity 0.3s;
+}
+#stage.cm #pzcards,
+#stage.cm #pznote,
+#stage.cm #spcm,
+#stage.cm #spdesc,
+#stage.cm #sptags,
+#stage.cm #spch,
+#stage.cm #spst,
+#stage.cm #spbd {
+  opacity: 0;
+  pointer-events: none;
+}
+#spst,
+#spbd,
+#spcm,
+#spdesc,
+#sptags,
+#spch {
+  transition: opacity 0.3s;
+}
+#spbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 212px;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  pointer-events: none;
+  transform: translateY(42px);
+  transition: transform 0.3s var(--ei);
+}
+#stage.cm #spbar {
+  transform: none;
+  transition: transform 0.3s var(--eo);
+}
+#cmtip {
+  position: absolute;
+  left: 49px;
+  top: 226px;
+  display: none;
+  z-index: 22;
+}
+#stage.cm #cmtip {
+  display: block;
+}
+#cyb .sel {
+  position: absolute;
+  left: 45px;
+  top: 130px;
+  width: 82px;
+  height: 82px;
+  display: none;
+  z-index: 2;
+  pointer-events: auto;
+  cursor: pointer;
+}
+#cyb .sel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    var(--c1) left top/9px 9px no-repeat,
+    var(--c2) right top/9px 9px no-repeat,
+    var(--c3) left bottom/9px 9px no-repeat,
+    var(--c4) right bottom/9px 9px no-repeat;
+  image-rendering: pixelated;
+  animation: selo 0.3s var(--e) infinite alternate;
+}
+#stage.cm #cyb .sel {
+  display: block;
+}
+
+/* ==================== Comment mode: input, hint, emoji list ==================== */
+#cin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  font-size: 16px;
+}
+#emo {
+  position: absolute;
+  left: 172px;
+  top: 77px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+#stage.cm #emo {
+  opacity: 1;
+  pointer-events: auto;
+}
+#stage.p #emo {
+  top: 104px;
+}
+#cllb {
+  transition: opacity 0.3s;
+}
+#emo .et {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#emg {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  box-sizing: border-box;
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(12, 8px);
+  column-gap: 10px;
+  row-gap: 4px;
+}
+#emg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.76); /* same as the other dark panels */
+  clip-path: var(--shape-card);
+}
+.ec {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  cursor: pointer;
+}
+.ec canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.ec .m {
+  position: absolute;
+  left: -10px;
+  top: -1px;
+  width: 8px;
+  height: 9px;
+  background: var(--mush);
+  image-rendering: pixelated;
+  opacity: 0;
+}
+@media (hover: hover) {
+  .ec:hover .m {
+    opacity: 1;
+  }
+}
+.ec.thov .m {
+  opacity: 1;
+}
+#clb {
+  left: 12px;
+  --n: url(assets/btn-back.png);
+}
+#clre {
+  left: 40px;
+  --n: url(assets/btn-refresh.png);
+}
+#cllike {
+  left: 68px;
+  --n: url(assets/btn-like.png);
+}
+#cllike.on {
+  --n: url(assets/btn-like-on.png);
+}
+#clcom {
+  left: 96px;
+  --n: url(assets/btn-comment.png);
+}
+#clnext {
+  left: 68px; /* stage packs only, after Retry */
+  display: none;
+  --n: url(assets/btn-play.png);
+}
+#clrm.nx #clnext {
+  display: block;
+}
+#clrm.nx #cllike {
+  left: 96px;
+}
+#clrm.nx #clcom {
+  left: 124px;
+}
+/* user list: mushroom left of the hovered row */
+#lmush {
+  position: absolute;
+  left: 0;
+  z-index: 2;
+  width: 8px;
+  height: 9px;
+  background: var(--mush);
+  image-rendering: pixelated;
+  display: none;
+}
+
+/* ==================== Circle (iris) transition ==================== */
+#iris {
+  position: absolute;
+  inset: 0;
+  z-index: 29;
+  background: #000;
+  display: none;
+  pointer-events: none;
+}
+#st {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: linear-gradient(#013d1f 46%, #1d6d45 87%);
+  opacity: 0;
+  pointer-events: none;
+}
+.s #st {
+  opacity: 1;
+  pointer-events: auto;
+}
+#sp {
+  position: absolute;
+  left: 10px;
+  top: 14px;
+  width: 401px;
+  height: 201px;
+}
+#sp::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 18px;
+  bottom: 0;
+  background: linear-gradient(#011a0e 40%, #0c2f1d);
+  clip-path: var(--shape-spb);
+}
+#tb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 17px;
+}
+
+/* ==================== Stages menu ==================== */
+.tb {
+  position: absolute;
+  bottom: 0;
+  box-sizing: border-box;
+  width: 200px;
+  height: 13px;
+  padding: 3px 0 0 8px;
+  border: 0;
+  background: #011a0e;
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+}
+.tb.on {
+  height: 17px;
+  padding-top: 5px;
+}
+.tb:first-child {
+  left: 0;
+  clip-path: var(--shape-tb1);
+}
+.tb:last-child {
+  left: 201px;
+  clip-path: var(--shape-tb2);
+}
+#sl {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 18px;
+  bottom: 0;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  box-sizing: border-box;
+  padding: 0; /* rows touch the panel edges, like the Stage World list */
+}
+#sl::-webkit-scrollbar {
+  display: none;
+}
+.sr {
+  height: 16px;
+  padding: 4px 0 0 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.sr .y {
+  display: none;
+}
+.sr.sel .y {
+  display: block;
+}
+.sr.sel .w {
+  display: none;
+}
+#sbar {
+  position: absolute;
+  left: 412px;
+  top: 32px;
+  width: 7px;
+  height: 183px;
+  background: linear-gradient(#010f08, #081b11);
+}
+#sth {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #bfc4c1;
+  cursor: pointer;
+}
+#sb {
+  left: 10px;
+}
+#sw {
+  right: 10px;
+  --n: url(assets/btn-edit.png);
+}
+
+/* ==================== Stage World: search & filters dialog ==================== */
+/* position and size of the dialog itself are in script.js (const SFL) */
+#wsrch.on {
+  --n: url(assets/btn-search-on.png); /* orange variant while a search is active */
+}
+#sfd {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  background: rgba(0, 0, 0, 0.75); /* dims the list and buttons behind */
+}
+#sfd.on {
+  display: block; /* the dim pops in at once */
+}
+#sfc {
+  position: absolute;
+  image-rendering: pixelated;
+}
+/* content shows only once the frame has fully grown (no fade) */
+#sfb {
+  position: absolute;
+  visibility: hidden;
+}
+#sfb.on {
+  visibility: visible;
+}
+#sfw {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none; /* the bottom buttons underneath stay clickable */
+}
+#sfs,
+#sfsb {
+  pointer-events: auto;
+}
+#sfb.on ~ #sfw,
+#sfd.on #sfsb {
+  visibility: visible; /* the scrollbar is there from the start, stretching with the popup */
+}
+#sfsb {
+  overflow: hidden;
+}
+/* the round buttons show as soon as the popup starts opening; on closing, dim and buttons go at once */
+#sfd.closing,
+#tgd.closing {
+  background: transparent;
+  pointer-events: none;
+}
+#sfd.closing #sfbt {
+  visibility: hidden;
+}
+#sfcan {
+  left: 8px;
+  --n: url(assets/btn-back.png);
+}
+#sfrst {
+  right: 36px;
+  --n: url(assets/btn-refresh.png);
+}
+#sfgo {
+  right: 8px;
+  --n: url(assets/btn-search.png);
+}
+#wmy.on {
+  --n: url(assets/btn-my-stages-on.png); /* green while toggled on */
+}
+#whash.on {
+  --n: url(assets/btn-contest-on.png);
+}
+#sfs {
+  position: absolute;
+  left: 0;
+  right: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+#sfs::-webkit-scrollbar {
+  display: none;
+}
+#sfl {
+  position: relative;
+}
+#sfsb {
+  position: absolute; /* placed in script.js, outside the dialog */
+  width: 7px;
+  visibility: hidden;
+  background: rgba(0, 0, 0, 0.76);
+}
+#sfth {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: #c4c2c3;
+  cursor: pointer;
+}
+.sft {
+  position: absolute;
+  left: 0;
+  display: flex;
+  justify-content: center;
+}
+.sfl,
+.sfi {
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+.sfv {
+  display: flex;
+  align-items: center;
+}
+.sfi.act {
+  cursor: pointer;
+}
+.sfi .m {
+  position: absolute;
+  left: -12px;
+  top: 3px;
+  width: 8px;
+  height: 9px;
+  background: var(--mush);
+  image-rendering: pixelated;
+  opacity: 0;
+}
+@media (hover: hover) {
+  .sfi.act:hover .m {
+    opacity: 1;
+  }
+}
+.sfsmb {
+  display: block;
+  width: 26px;
+  height: 10px;
+  background: url(assets/theme-smb-label.png);
+  image-rendering: pixelated;
+}
+#sfin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  font-size: 16px;
+}
+
+/* mushrooms only mark the hovered item; they never take clicks themselves */
+.m {
+  pointer-events: none;
+}
+
+/* ==================== Stage Pack World (Stage World screen in pack mode, #stage.k) ==================== */
+#stage.k #wld,
+#stage.k #stp {
+  background: #203050;
+}
+#stage.k #whash,
+#stage.k #wsort {
+  display: none;
+}
+#stage.k #wmy {
+  right: 36px;
+}
+.wr .pst {
+  position: absolute; /* "Completed" / "In progress", under the SMB badge */
+  right: 5px;
+  top: 23px;
+}
+/* PixelArtX / Custom life / Custom enemy icons, left of the difficulty badge */
+.tics {
+  display: flex;
+  gap: 1px;
+  margin-right: -2px; /* 5px to the badge */
+}
+.tics:empty {
+  display: none;
+}
+.tic {
+  display: block;
+  width: 8px;
+  height: 8px;
+  image-rendering: pixelated;
+}
+/* stage pack details: back, start, new game, like, comment */
+#splv {
+  position: absolute;
+  right: 9px;
+  top: 25px;
+  display: none;
+}
+#stage.k #splv {
+  display: block;
+}
+#sprst {
+  left: 68px;
+  display: none;
+  --n: url(assets/btn-restart.png);
+}
+#stage.k #sprst {
+  display: block;
+}
+#stage.k #spghost,
+#stage.k #spdel,
+#stage.k #spdl {
+  display: none;
+}
+#stage.k #splike {
+  left: 96px;
+}
+#stage.k #spcom {
+  left: 124px;
+}
+#sptags > div > canvas {
+  display: block;
+  margin-bottom: 3px; /* 11px per tag line, as before (a wrapped tag keeps its lines together) */
+}
+#sptags .tge {
+  cursor: pointer;
+}
+
+/* ==================== Edit tags popup ==================== */
+/* position and size are in script.js (const TGL) */
+#tgd {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  background: rgba(0, 0, 0, 0.75);
+}
+#tgd.on {
+  display: block;
+}
+#tgc {
+  position: absolute;
+  image-rendering: pixelated;
+}
+#tgb {
+  position: absolute;
+  visibility: hidden;
+}
+#tgb.on {
+  visibility: visible;
+}
+#tgd.closing .fab {
+  visibility: hidden;
+}
+#tgcan {
+  left: 12px;
+  --n: url(assets/btn-back.png);
+}
+#tgok {
+  right: 12px;
+  --n: url(assets/btn-submit.png);
+}
+
+/* ==================== Comment mode on a player's profile (user gallery card, #stage.cmg) ==================== */
+#stage.cmg.l #cyb {
+  translate: 68px 4px; /* commenter inside the side card, standing on its bottom edge (y 216) */
+}
+#stage.cmg:not(.l) #cyb {
+  translate: 15px 4px;
+}
+#stage.cmg #cml {
+  clip-path: inset(0 0 37px 0); /* card bottom */
+}
+/* narrower emoji list on the card */
+#stage.cmg #emg {
+  grid-template-columns: repeat(9, 8px);
+}
+#stage.cmg.l #emo {
+  left: 244px; /* against the card's right side */
+  top: 56px;
+}
+#stage.cmg:not(.l) #emo {
+  left: 187px;
+  top: 56px;
+}
+#stage.cmg .fab:not(#back) {
+  display: none;
+}
+#stage.cmg #card .ccm,
+#stage.cmg #card .ccsb {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* user card comments: hover mushroom drawn above the card (not cropped by its edge) */
+#cmush {
+  position: absolute;
+  z-index: 25;
+  width: 8px;
+  height: 9px;
+  background: var(--mush);
+  image-rendering: pixelated;
+  display: none;
+}
+[data-pc] .ccm .cmr .m {
+  display: none;
+}
+
+/* ==================== Local play lists (compact Stage World style rows, not clickable) ==================== */
+.lr {
+  position: relative;
+  height: 22px;
+  cursor: pointer;
+}
+.lr:active::before,
+.lr.sel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+  clip-path: var(--shape-card);
+}
+/* hover / selected frames sit over the list (outside its scroll clip), like #whov / #wsel */
+#lov {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 18px;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 3;
+  clip-path: inset(-2px -20px);
+}
+#lhov,
+#lsel {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 22px;
+  display: none;
+}
+#lhov::after,
+#lsel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    var(--c1) left top/9px 9px no-repeat,
+    var(--c2) right top/9px 9px no-repeat,
+    var(--c3) left bottom/9px 9px no-repeat,
+    var(--c4) right bottom/9px 9px no-repeat;
+  image-rendering: pixelated;
+  animation: selr 0.3s var(--e) infinite alternate;
+}
+#lhov::after {
+  opacity: 0.47;
+}
+#lhov.act::after {
+  opacity: 1;
+}
+.lr .ti {
+  position: absolute;
+  left: 8px;
+  top: 3px;
+}
+.lr .by {
+  position: absolute;
+  left: 8px;
+  top: 12px;
+}
+.lr .lt {
+  position: absolute; /* tags, under the theme line */
+  right: 5px;
+  top: 13px;
+}
+.lr .lb {
+  position: absolute; /* (status, levels,) icons, SMB */
+  right: 5px;
+  top: 2px;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.lr .lt .s,
+.lr.sel .lt .n,
+.lr:active .lt .n {
+  display: none;
+}
+.lr.sel .lt .s,
+.lr:active .lt .s {
+  display: block;
+}

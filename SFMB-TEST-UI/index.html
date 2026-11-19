@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>User menu – prototípus</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="stage" class="h">
+        <div id="vw">
+          <div id="bg2"></div>
+          <div id="fade"></div>
+          <div id="st">
+            <div id="sp">
+              <div id="tb"><button class="tb on" id="t1"></button><button class="tb" id="t2"></button></div>
+              <div id="sl"></div>
+              <div id="lov">
+                <div id="lsel"></div>
+                <div id="lhov"></div>
+              </div>
+            </div>
+            <div id="sbar"><div id="sth"></div></div>
+            <button class="fab" id="sb" data-tip="Back" aria-label="Back"></button
+            ><button class="fab" id="sw" data-tip="Open MapEditor" aria-label="Open MapEditor"></button>
+          </div>
+          <div id="yp">
+            <div id="ybg"></div>
+            <div id="yttl"></div>
+            <div id="ycard" class="ready" data-pc></div>
+            <div id="lpp">
+              <div class="lpt"></div>
+              <div class="lpbox"></div>
+              <div id="lprows"></div>
+            </div>
+            <div id="yid"></div>
+            <button class="fab" id="yb" data-tip="Back" aria-label="Back"></button
+            ><button class="fab pub" id="yprof" data-tip="" aria-label="Profile visibility"></button
+            ><button class="fab" id="yeye" data-tip="Preview" aria-label="Preview my card"></button
+            ><button class="fab" id="ychat" data-tip="Likes &amp; comments" aria-label="Likes and comments"></button>
+          </div>
+          <div id="wld">
+            <div id="wttl"></div>
+            <div id="wsort"><span id="warr"></span><span id="wst"></span></div>
+            <div id="wlp"><div id="wl"></div></div>
+            <div id="wov">
+              <div id="wsel"></div>
+              <div id="whov"></div>
+            </div>
+            <div id="wsb"><div id="wth"></div></div>
+            <button class="fab" id="wb" data-tip="Back" aria-label="Back"></button
+            ><button class="fab" id="wre" data-tip="Refresh" aria-label="Refresh"></button
+            ><button class="fab" id="wmy" data-tip="Filter to my stages" aria-label="Filter to my stages"></button
+            ><button
+              class="fab"
+              id="whash"
+              data-tip="Filter to contest stages"
+              aria-label="Filter to contest stages"
+            ></button
+            ><button class="fab" id="wsrch" data-tip="Search &amp; filters" aria-label="Search and filters"></button>
+            <div id="sfd">
+              <canvas id="sfc"></canvas>
+              <div id="sfb"></div>
+              <div id="sfw">
+                <div id="sfs"><div id="sfl"></div></div>
+              </div>
+              <div id="sfsb"><div id="sfth"></div></div>
+              <div id="sfbt">
+                <button class="fab" id="sfcan" data-tip="Cancel" aria-label="Cancel"></button
+                ><button class="fab" id="sfrst" data-tip="Reset" aria-label="Reset"></button
+                ><button class="fab" id="sfgo" data-tip="Search" aria-label="Search"></button>
+              </div>
+            </div>
+            <input id="sfin" autocomplete="off" aria-label="Search text" />
+          </div>
+          <div id="stp">
+            <div id="spttl"></div>
+            <div id="spby">
+              <span class="a"></span
+              ><span class="nz" data-tip="Open player card" data-tipup
+                ><span class="b"></span><canvas class="sav" width="16" height="16"></canvas></span
+              ><span class="m"></span>
+            </div>
+            <div id="spver"></div>
+            <div id="splv"></div>
+            <div class="spp" id="spdesc"><div class="t"></div></div>
+            <div id="sptags"></div>
+            <div id="spch"></div>
+            <div class="spp" id="spcm">
+              <div id="cml2"></div>
+              <div id="cmsb"><div id="cmth"></div></div>
+            </div>
+            <div id="spbd"></div>
+            <div id="spst"></div>
+            <div id="spbar"></div>
+            <button class="fab" id="spb" data-tip="Back" aria-label="Back"></button
+            ><button class="fab" id="spplay" data-tip="Play" aria-label="Play"></button
+            ><button class="fab" id="sprst" data-tip="New game" aria-label="New game"></button
+            ><button class="fab" id="splike" data-tip="Like" aria-label="Like"></button
+            ><button class="fab" id="spcom" data-tip="Comment" aria-label="Comment"></button
+            ><button class="fab" id="spghost" data-tip="Ghost run" aria-label="Ghost run"></button
+            ><button class="fab" id="spdel" data-tip="Delete stage" aria-label="Delete stage"></button
+            ><button class="fab" id="spdl" data-tip="Download stage" aria-label="Download stage"></button>
+            <div id="tgd">
+              <canvas id="tgc"></canvas>
+              <div id="tgb"></div>
+              <button class="fab" id="tgcan" data-tip="Cancel" aria-label="Cancel"></button
+              ><button class="fab" id="tgok" data-tip="Save" aria-label="Save"></button>
+            </div>
+          </div>
+          <div id="pz">
+            <div id="pztop"></div>
+            <div id="pzttl"></div>
+            <div id="pzby"></div>
+            <div id="pzcards"></div>
+            <div id="pzbot"></div>
+            <div id="pznote">Click "Continue" to clear stage</div>
+            <button class="fab" id="pzb" data-tip="Back" aria-label="Back"></button
+            ><button class="fab" id="pzcont" data-tip="Continue" aria-label="Continue"></button
+            ><button class="fab" id="pzrst" data-tip="Restart" aria-label="Restart"></button
+            ><button class="fab" id="pzlike" data-tip="Like" aria-label="Like"></button
+            ><button class="fab" id="pzcom" data-tip="Comment" aria-label="Comment"></button
+            ><button class="fab" id="pzshow" data-tip="Showcase mode" aria-label="Showcase mode"></button
+            ><button class="fab" id="pzrec" data-tip="Records" aria-label="Records"></button
+            ><button class="fab" id="pzset" data-tip="Settings" aria-label="Settings"></button
+            ><button class="fab" id="pzrep" data-tip="Report" aria-label="Report"></button>
+          </div>
+          <div id="clrm">
+            <div class="pztop"></div>
+            <div id="clttl"></div>
+            <div id="clby"></div>
+            <div id="cllb"></div>
+            <div id="cyy">
+              <div class="gy"></div>
+              <div class="dg"></div>
+              <div class="lab"></div>
+            </div>
+            <div class="pzb2"></div>
+            <button class="fab" id="clb" data-tip="Back" aria-label="Back"></button
+            ><button class="fab" id="clre" data-tip="Retry" aria-label="Retry"></button
+            ><button class="fab" id="cllike" data-tip="Like" aria-label="Like"></button
+            ><button class="fab" id="clcom" data-tip="Comment" aria-label="Comment"></button
+            ><button class="fab" id="clnext" data-tip="Next stage" aria-label="Next stage"></button>
+          </div>
+          <div id="cml">
+            <div id="cyb">
+              <div class="gy"></div>
+              <div class="bub"></div>
+              <div class="lab"></div>
+              <div class="sel"></div>
+            </div>
+            <div id="emo">
+              <div class="et"></div>
+              <div id="emg"></div>
+            </div>
+          </div>
+          <div id="cmtip"></div>
+          <input id="cin" autocomplete="off" aria-label="Comment" />
+          <div id="iris"></div>
+          <div id="home">
+            <button
+              class="hb"
+              id="hchipb"
+              data-tip="Your profile"
+              style="left: 7px; top: 13px; width: 91px; height: 18px"
+              aria-label="Your profile"
+            >
+              <canvas id="hchip" width="91" height="18"></canvas></button
+            ><img
+              class="ho"
+              style="left: 110px; top: 41px; width: 205px; height: 88px"
+              alt="Mario Multiverse"
+              src="assets/logo.png"
+            />
+            <div class="hpf" style="left: 45px; top: 138px; width: 108px; height: 72px"></div>
+            <div class="hpf" style="left: 155px; top: 138px; width: 109px; height: 72px"></div>
+            <div class="hpf" style="left: 266px; top: 138px; width: 109px; height: 72px"></div>
+            <button
+              class="hb"
+              id="hpack"
+              data-tip="Stage Pack World"
+              style="left: 49px; top: 142px; width: 100px; height: 64px"
+              aria-label="Stage Pack World"
+            >
+              <img alt="" src="assets/menu-picture-1.png" /></button
+            ><button
+              class="hb"
+              id="hworld"
+              data-tip="Stage World"
+              style="left: 159px; top: 142px; width: 101px; height: 64px"
+              aria-label="Stage World"
+            >
+              <img alt="" src="assets/menu-stage-world.png" /></button
+            ><button class="hb" style="left: 270px; top: 142px; width: 101px; height: 64px" aria-label="Picture 3">
+              <img alt="" src="assets/menu-picture-3.png" /></button
+            ><button class="hi" id="hi0" data-tip="Local play" style="left: 255px" aria-label="Local play">
+              <img alt="" src="assets/home-local-play.png" /></button
+            ><button class="hi" id="hi1" data-tip="Gallery" style="left: 275px" aria-label="Gallery">
+              <img alt="" src="assets/home-gallery.png" /></button
+            ><button class="hi" id="hi2" data-tip="Shop" style="left: 295px" aria-label="Shop">
+              <img alt="" src="assets/home-shop.png" /></button
+            ><button class="hi" id="hi3" data-tip="Inventory" style="left: 315px" aria-label="Inventory">
+              <img alt="" src="assets/home-inventory.png" /></button
+            ><button class="hi" id="hi4" data-tip="Notifications" style="left: 335px" aria-label="Notifications">
+              <img alt="" src="assets/home-notifications.png" /></button
+            ><button class="hi" id="hi6" data-tip="Credits" style="left: 355px" aria-label="Credits">
+              <img alt="" src="assets/home-credits.png" /></button
+            ><button class="hi" id="hi7" data-tip="Settings" style="left: 375px" aria-label="Settings">
+              <img alt="" src="assets/home-settings.png" /></button
+            ><button class="hi" id="hi8" data-tip="Quit game" style="left: 395px" aria-label="Quit game">
+              <img alt="" src="assets/home-quit.png" />
+            </button>
+            <div id="hft"></div>
+          </div>
+          <div id="title"></div>
+          <div id="sbx">
+            <input
+              id="search"
+              type="text"
+              maxlength="24"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Search user"
+            /><canvas id="sqc"></canvas>
+          </div>
+          <span id="sbm" class="m"></span>
+          <div id="tip"></div>
+          <div id="asel"></div>
+          <div id="btip"></div>
+          <div id="listp"></div>
+          <div id="lsb"><div id="lth"></div></div>
+          <span id="lmush" class="m"></span>
+          <span id="cmush" class="m"></span>
+          <canvas id="balls" width="421" height="253"></canvas>
+          <div id="card" class="center" data-pc></div>
+          <button id="back" class="fab" data-tip="Back" aria-label="Back"></button>
+          <button id="chat" class="fab" data-tip="Comment" aria-label="Comment"></button>
+          <button id="ulike" class="fab" data-tip="Like" aria-label="Like"></button>
+          <button id="edit" class="fab" data-tip="Edit" aria-label="Edit profile"></button>
+          <button id="prof" class="fab pub" data-tip="" aria-label="Profile visibility"></button>
+          <button id="ctrl" class="fab" data-tip="Stages from this user" aria-label="Stages from this user"></button>
+          <button id="whistle" class="fab" data-tip="" aria-label="Sort"></button>
+        </div>
+      </div>
+    </div>
+    <script src="fonts.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
