@@ -2160,6 +2160,12 @@ body {
 #stage.cm #emo {
   opacity: 1;
   pointer-events: auto;
+  animation: emoIn 0.3s; /* fades in on every screen, also where the comment layer was just shown */
+}
+@keyframes emoIn {
+  from {
+    opacity: 0;
+  }
 }
 #stage.p #emo {
   top: 104px;
@@ -2775,4 +2781,16 @@ body {
 .lr.sel .lt .s,
 .lr:active .lt .s {
   display: block;
+}
+
+/* texts inside list rows never take the click themselves (their hidden / shown colour variants swap
+   while the row is pressed, which could swallow the click) */
+.wr .ti *,
+.wr .by *,
+.wr .tg *,
+.wr .st *,
+.wr .bd *,
+.wr .pst *,
+.lr * {
+  pointer-events: none;
 }

@@ -1084,6 +1084,8 @@
       w.classList.remove("shake");
       void w.offsetWidth;
       w.classList.add("shake");
+      // drop the class when done, so the shake does not replay when the button is shown again
+      w.addEventListener("animationend", () => w.classList.remove("shake"), { once: true });
     }
     if (mode === "b") {
       mode = "l";
