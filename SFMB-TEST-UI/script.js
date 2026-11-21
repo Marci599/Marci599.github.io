@@ -1740,20 +1740,23 @@
     L.forEach((x, i) => {
       const u = r2() < 0.08 ? U[0] : U[1 + Math.floor(r2() * (U.length - 1))];
       const T = 3 * (5 + Math.floor(r2() * 95)),
-        Wn = i % 11 === 5 ? 0 : Math.round((T * x[3]) / 100); // a few stages nobody has cleared yet
-      const cm = [];
-      const nc = Math.floor(r2() * 5);
-      for (let k = 0; k < nc; k++) {
-        const unk = r2() < 0.15;
-        cm.push({ u: U[1 + Math.floor(r2() * (U.length - 1))], unk, t: pk(CMT) });
-      }
-      const clr = [];
-      if (Wn > 0) {
+        // every stage was cleared at least once, by its creator (needed to upload it); a few only by them
+        Wn = i % 11 === 5 ? 1 : Math.max(1, Math.round((T * x[3]) / 100));
+      const clr = [u];
+      {
         const n = Math.min(Wn, 1 + Math.floor(r2() * Math.min(Wn, 12)));
         while (clr.length < n) {
           const cu = U[Math.floor(r2() * U.length)];
           if (!clr.includes(cu)) clr.push(cu);
         }
+      }
+      // no more comments than clears (only players who cleared it comment)
+      const cm = [];
+      const nc = Math.min(clr.length, Math.floor(r2() * 5));
+      for (let k = 0; k < nc; k++) {
+        const unk = r2() < 0.15;
+        const cu = clr[Math.floor(r2() * clr.length)];
+        cm.push({ u: cu === U[0] ? clr[0] : cu, unk, t: pk(CMT) });
       }
       const sample = (n, pool) => {
         const o = [];
@@ -1767,10 +1770,14 @@
       const others = U.slice(1),
         MODS = ["Cobalt", "Nimbus", "Orbit", "Echo7", "Zephyr"].map((n) => U.find((u) => u.name === n));
       const dlers = sample(x[2], U),
-        likers = sample(x[4], others),
+        // no more likes than clears: likers are players who cleared it (not the creator, not you)
+        likers = sample(
+          x[4],
+          clr.filter((c) => c !== u && c !== U[0]),
+        ),
         raters = x[5] === "?" ? [] : sample(1 + Math.floor(r2() * 5), MODS),
         scores = raters.map(() => 1 + Math.floor(r2() * 7));
-      const times = clr.map(() => 10 + r2() * 80).sort((a, b) => a - b);
+      const times = clr.map(() => 10 + r2() * 80);
       const CF = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 18, 19, 20];
       const cards = [];
       const ncd = 1 + Math.floor(r2() * 3);
@@ -1803,7 +1810,7 @@
         pct: Math.round((Wn / T) * 100),
         win: Wn,
         lose: T - Wn,
-        likes: x[4],
+        likes: likers.length,
         rate: scores.length ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : "?",
         scores,
         d: diffOf((Wn / T) * 100),
@@ -1811,11 +1818,18 @@
         desc: pk(DESC),
         cm,
         liked: false,
-        cleared: false,
-        myBest: null,
+        cleared: u === U[0], // your own stage: you cleared it to upload it
+        myBest: u === U[0] ? times[0] : null,
       });
     });
+    WROWS.forEach(sortClr);
   })();
+  // clearers and their times in time order (fastest first), as the leaderboard expects
+  function sortClr(w) {
+    const p = w.clr.map((u, k) => ({ u, t: w.times[k] })).sort((a, b) => a.t - b.t);
+    w.clr = p.map((x) => x.u);
+    w.times = p.map((x) => x.t);
+  }
   // ---- Stage Pack World data (shares the Stage World screen; PK = pack mode)
   let PK = false,
     pendingPK = null;
@@ -1903,7 +1917,14 @@
       for (let k = 0; k < P.levels; k++) {
         const T = 3 * (5 + Math.floor(r() * 60)),
           Wn = Math.max(1, Math.round(T * (0.05 + r() * 0.6))),
-          clr = sample(1 + Math.floor(r() * 6), U.slice(1)),
+          // the creator always cleared it; you too once you beat it in the pack
+          clr = [
+            u,
+            ...sample(
+              Math.floor(r() * 6),
+              U.slice(1).filter((x) => x !== u),
+            ),
+          ],
           raters = r() < 0.6 ? sample(1 + Math.floor(r() * 4), MODS) : [],
           scores = raters.map(() => 1 + Math.floor(r() * 7)),
           cards = [];
@@ -1911,9 +1932,16 @@
           const c = pick([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 18, 19, 20]);
           if (!cards.includes(c)) cards.push(c);
         }
+        if (k < P.done && !clr.includes(U[0])) clr.push(U[0]);
+        const others = clr.filter((x) => x !== U[0]);
         const scm = [];
-        for (let j = Math.floor(r() * 3); j > 0; j--)
-          scm.push({ u: U[1 + Math.floor(r() * (U.length - 1))], unk: r() < 0.15, t: pick(CMT) });
+        for (let j = Math.min(others.length, Math.floor(r() * 3)); j > 0; j--)
+          scm.push({ u: pick(others), unk: r() < 0.15, t: pick(CMT) });
+        const sTimes = clr.map(() => 10 + r() * 80),
+          sLikers = sample(
+            Math.floor(r() * 10),
+            others.filter((x) => x !== u),
+          );
         P.stages.push({
           inPack: P,
           k,
@@ -1923,23 +1951,24 @@
           tags: [],
           cards,
           clr,
-          times: clr.map(() => 10 + r() * 80).sort((a, b) => a - b),
+          times: sTimes,
           win: Wn,
           lose: T - Wn,
           pct: Math.round((Wn / T) * 100),
           dl: 1 + Math.floor(r() * 30),
           dlers: [],
-          likes: Math.floor(r() * 10),
-          likers: [],
+          likes: sLikers.length, // never more likes than clears
+          likers: sLikers,
           raters,
           scores,
           rate: scores.length ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : "?",
           cm: scm,
           liked: false,
           cleared: k < P.done,
-          myBest: null,
+          myBest: clr.includes(U[0]) ? sTimes[clr.indexOf(U[0])] : null,
         });
       }
+      P.stages.forEach(sortClr);
       P.dl = 1 + Math.floor(r() * 39);
       P.dlers = sample(P.dl, U);
       P.likes = Math.floor(r() * 25);
@@ -3049,6 +3078,259 @@
       () => tgd.classList.remove("on", "closing"),
     );
   }
+  // ---- Ghost run popup (stage details): pick which players' ghosts to race
+  const GHL = {
+    left: 68, // popup position and size, as in the game (shorter: Play / Cancel are round buttons below)
+    top: 73,
+    width: 286,
+    height: 92,
+    heads: [25, 103, 195], // x of VS LOWER / VS MIDDLE / VS TOP
+    headTop: 10,
+    laneLeft: 29, // slowest ghost spot (centre)
+    laneRight: 245, // fastest ghost spot (centre)
+    ground: 66, // feet of the ghosts
+    scale: 0.75, // ghost sprites are drawn at 3/4 size in the game
+    selTop: 70, // "SELECTED: ..." row
+    max: 10, // most ghosts you can pick by hand
+    blinkMs: 1000, // random selection changes every second
+    soloText: "There is only one ghost to race with right now...", // title when the stage has a single clear
+  };
+  // the 15 Mario spots of the game's screenshot, slowest (left) to fastest (right):
+  // x = centre, up = feet above the ground, f = sprite (sheet, x, y, w, h on assets/mario-small.png / mario-big.png)
+  const GH_RUN = ["s", 30, 9, 15, 16],
+    GH_STAND = ["s", 83, 9, 11, 16],
+    GH_WALK = ["s", 57, 10, 13, 15],
+    GH_SQUAT = ["s", 156, 12, 14, 13],
+    GH_JUMP = ["s", 129, 8, 16, 16],
+    GH_BWALK = ["b", 158, 16, 14, 31],
+    GH_BWALK2 = ["b", 110, 17, 16, 30],
+    GH_BJUMP = ["b", 251, 15, 16, 32];
+  const GH_SLOTS = [
+    { x: 29.3, up: 0, f: GH_RUN },
+    { x: 37.3, up: 8.3, f: GH_BJUMP },
+    { x: 54.7, up: 0, f: GH_SQUAT },
+    { x: 71.3, up: 0, f: GH_RUN },
+    { x: 89.5, up: 0, f: GH_STAND },
+    { x: 107.7, up: 0, f: GH_BWALK },
+    { x: 123.7, up: 9, f: GH_JUMP },
+    { x: 141.2, up: 0, f: GH_SQUAT },
+    { x: 150, up: 0, f: GH_STAND },
+    { x: 167.3, up: 0, f: GH_WALK },
+    { x: 186, up: 0, f: GH_WALK },
+    { x: 201.7, up: 9, f: GH_JUMP },
+    { x: 219.7, up: 0, f: GH_SQUAT },
+    { x: 237, up: 0, f: GH_BWALK2 },
+    { x: 244.7, up: 0, f: GH_RUN },
+  ]; // sprite frames (x, y, w, h) on assets/mario-small.png and mario-big.png
+  const ghd = $("ghd"),
+    ghc = $("ghc"),
+    ghb = $("ghb");
+  let ghOpen = false,
+    ghAnim = 0,
+    ghMode = "random", // "random" | "manual" | "lower" | "middle" | "top"
+    ghSel = new Set(),
+    ghList = [],
+    ghBlinkT = 0,
+    ghVs = [];
+  ghc.style.left = ghb.style.left = GHL.left + "px";
+  ghb.style.top = GHL.top + "px";
+  ghb.style.width = GHL.width + "px";
+  ghb.style.height = GHL.height + "px";
+  function ghBuild(w) {
+    ghb.textContent = "";
+    // ghosts: everyone who cleared the stage (you too, with your best time), slowest on the left
+    const pairs = w.clr
+      .map((u, k) => ({ u, t: u.me ? w.myBest : w.times[k] }))
+      .filter((p) => p.t != null)
+      .sort((a, b) => b.t - a.t);
+    const n = pairs.length,
+      L = GH_SLOTS.length;
+    ghList = pairs.map((p, k) => {
+      // spread over the screenshot's spots (all 15 when there are 15)
+      // only one ghost: a standing Mario in the middle of the popup
+      const sl =
+          n > 1 ? GH_SLOTS[Math.round((k * (L - 1)) / (n - 1))] : { x: GHL.width / 2, up: 0, f: GH_STAND },
+        [sh, fx, fy, fw, fh] = sl.f,
+        big = sh === "b",
+        d = document.createElement("div");
+      d.className = "ghs";
+      d.style.left = Math.round((sl.x - (fw * GHL.scale) / 2) * 3) / 3 + "px";
+      d.style.top = Math.round((GHL.ground - sl.up - fh * GHL.scale) * 3) / 3 + "px";
+      d.style.width = fw * GHL.scale + "px";
+      d.style.height = fh * GHL.scale + "px";
+      const im = document.createElement("div"); // the sprite (see-through when not selected); d draws the red frame
+      im.className = "ghi";
+      im.style.backgroundImage = "url(assets/mario-" + (big ? "big" : "small") + ".png)";
+      im.style.backgroundSize = (big ? 612 : 326) * GHL.scale + "px auto";
+      im.style.backgroundPosition = -fx * GHL.scale + "px " + -fy * GHL.scale + "px";
+      d.appendChild(im);
+      d.dataset.tip = p.u.name + " " + ghTime(p.t);
+      if (n > 1) d.addEventListener("click", () => ghToggle(k));
+      else d.classList.add("solo");
+      ghb.appendChild(d);
+      if (p.u.me) {
+        // YOU above your own ghost
+        const y = document.createElement("div");
+        y.className = "ghyou";
+        y.style.left = Math.round((sl.x - 35 / 3) * 3) / 3 + "px";
+        ghb.appendChild(y);
+      }
+      const third = (sl.x - GHL.laneLeft) / (GHL.laneRight - GHL.laneLeft + 1);
+      return { d, area: third < 1 / 3 ? "lower" : third < 2 / 3 ? "middle" : "top" };
+    });
+    // flag at the end of the lane
+    const fl = document.createElement("div");
+    fl.className = "ghflag";
+    ghb.appendChild(fl);
+    // VS LOWER / MIDDLE / TOP
+    if (n === 1) {
+      // only one clear: a title instead of the VS buttons, no "SELECTED" text
+      ghVs = [];
+      // wrapped into centred lines (too long for one)
+      wrapL(GHL.soloText, "n", GHL.width - 24).forEach((l, k) => {
+        const t = document.createElement("div");
+        t.className = "ghst";
+        t.style.top = GHL.headTop - 4 + k * 13 + "px";
+        t.style.width = GHL.width + "px";
+        t.appendChild(bt(l, "n", "#d0d0d0", "rgba(0,0,0,.57)"));
+        ghb.appendChild(t);
+      });
+      return;
+    }
+    ghVs = ["lower", "middle", "top"].map((a, k) =>
+      sfItem(
+        ghb,
+        GHL.heads[k],
+        GHL.headTop,
+        (b) => {
+          b.textContent = "";
+          b.appendChild(bt("VS " + a.toUpperCase(), "n", "#d0d0d0", "rgba(0,0,0,.57)"));
+        },
+        () => {
+          ghMode = a;
+          ghSel = new Set(ghList.map((g, i) => (g.area === a ? i : -1)).filter((i) => i >= 0));
+          ghRender();
+        },
+        null,
+        { items: [], refresh: () => {} },
+      ),
+    );
+    const st = document.createElement("div");
+    st.className = "ghst";
+    st.style.top = GHL.selTop + "px";
+    st.style.width = GHL.width + "px";
+    ghb.appendChild(st);
+  }
+  // tooltip time: minutes:seconds:hundredths
+  function ghTime(t) {
+    const cs = Math.round(t * 100);
+    return Math.floor(cs / 6000) + ":" + pad(Math.floor(cs / 100) % 60) + ":" + pad(cs % 100);
+  }
+  function ghToggle(k) {
+    if (ghMode === "random") ghSel = new Set(); // first pick: only that ghost
+    ghMode = "manual";
+    if (ghSel.has(k)) ghSel.delete(k);
+    else ghSel.add(k);
+    if (!ghSel.size) ghMode = "random"; // nothing picked: back to random
+    ghRender();
+  }
+  function ghRandom() {
+    const n = ghList.length,
+      pick = new Set();
+    const want = n ? 1 + Math.floor(Math.random() * Math.min(GHL.max, n)) : 0;
+    while (pick.size < want) pick.add(Math.floor(Math.random() * n));
+    ghSel = pick;
+  }
+  function ghRender() {
+    clearInterval(ghBlinkT);
+    if (ghList.length === 1) {
+      // the only ghost is always the one you race
+      ghList[0].d.classList.add("on");
+      $("ghgo").disabled = false;
+      return;
+    }
+    if (ghMode === "random") {
+      ghRandom();
+      ghBlinkT = setInterval(() => {
+        ghRandom();
+        ghPaint();
+      }, GHL.blinkMs);
+    }
+    ghPaint();
+  }
+  function ghPaint() {
+    ghList.forEach((g, i) => g.d.classList.toggle("on", ghSel.has(i)));
+    ["lower", "middle", "top"].forEach((a, k) => ghVs[k] && ghVs[k].classList.toggle("cur", ghMode === a)); // mushroom stays on the chosen VS
+    const over = ghMode === "manual" && ghSel.size > GHL.max,
+      txt =
+        ghMode === "random"
+          ? "RANDOM"
+          : ghMode === "manual"
+            ? ghSel.size + " / " + GHL.max
+            : ghMode.toUpperCase();
+    const st = q(ghb, "ghst");
+    if (st) {
+      st.textContent = "";
+      st.appendChild(bt("SELECTED: " + txt, "n", over ? "#ff3b3b" : "#fff"));
+    }
+    $("ghgo").disabled = over; // more than 10 picked: Play is greyed out
+  }
+  function ghAnimate(from, to, ms, ease, done) {
+    cancelAnimationFrame(ghAnim);
+    const t0 = performance.now();
+    const step = (now) => {
+      const k = Math.min(1, (now - t0) / ms);
+      drawFrame(ghc, GHL.width, from + (to - from) * ease(k), GHL.top, GHL.height);
+      if (k < 1) ghAnim = requestAnimationFrame(step);
+      else if (done) done();
+    };
+    ghAnim = requestAnimationFrame(step);
+  }
+  function ghShow() {
+    if (ghOpen || !fReady || !selW || selW.pack) return;
+    ghOpen = true;
+    showBtip(null);
+    ghBuild(selW);
+    ghMode = "random";
+    ghRender();
+    ghd.classList.remove("closing");
+    ghd.classList.add("on");
+    ghb.classList.remove("on");
+    drawFrame(ghc, GHL.width, 4, GHL.top, GHL.height);
+    ghAnimate(
+      4,
+      GHL.height,
+      T("popup-open"),
+      (k) => 1 - Math.pow(1 - k, 3),
+      () => ghb.classList.add("on"),
+    );
+  }
+  function ghClose() {
+    if (!ghOpen) return;
+    ghOpen = false;
+    clearInterval(ghBlinkT);
+    showBtip(null);
+    ghb.classList.remove("on");
+    ghd.classList.add("closing");
+    ghAnimate(
+      GHL.height,
+      4,
+      T("popup-close"),
+      (k) => k * k * k,
+      () => ghd.classList.remove("on", "closing"),
+    );
+  }
+  $("spghost").addEventListener("click", ghShow);
+  $("ghcan").addEventListener("click", ghClose);
+  $("ghgo").addEventListener("click", () => {
+    if ($("ghgo").disabled) return;
+    // close the popup (normal closing animation) and start the stage with the chosen ghosts (same as Play)
+    ghClose();
+    $("spplay").click(); // the transition into the game starts while the popup is still closing
+  });
+  addEventListener("keydown", (e) => {
+    if (ghOpen && e.key === "Escape") ghClose();
+  });
   $("tgcan").addEventListener("click", tgClose);
   $("tgok").addEventListener("click", () => {
     const w = tgW;
@@ -3838,6 +4120,7 @@
     if (sfOpen) sfClose();
     if (tgOpen) tgClose();
     if (soOpen) soClose();
+    if (ghOpen) ghClose();
     applyView(location.hash.slice(1), false);
   });
   $("whistle").addEventListener("click", () => setTimeout(syncHash, 0));

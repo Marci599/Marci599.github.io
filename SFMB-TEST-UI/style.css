@@ -478,9 +478,11 @@ body {
   image-rendering: pixelated;
   opacity: 0;
 }
-#sbx:hover + #sbm,
+#sbx:hover + #sbm {
+  opacity: var(--mh);
+}
 #sbx:focus-within + #sbm {
-  opacity: 1;
+  opacity: 1; /* typing in it */
 }
 #search {
   position: absolute;
@@ -611,7 +613,12 @@ body {
 [data-pc] .ctab.ct2 {
   left: 97px;
   width: 97px;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3px), 0 calc(100% - 3px)); /* same bottom as the outer tabs */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 3px),
+    0 calc(100% - 3px)
+  ); /* same bottom as the outer tabs */
 }
 [data-pc] .ctab.ct3 {
   display: flex;
@@ -1176,7 +1183,6 @@ body {
   background: var(--mush);
   image-rendering: pixelated;
   opacity: 0;
-  transition: opacity 0.1s;
 }
 .lpr .y {
   display: none;
@@ -1187,12 +1193,13 @@ body {
 .lpr.act .w {
   display: none;
 }
-.lpr.act .m {
-  opacity: 0.45;
-}
 .lpr:hover .m,
 .lpr.thov .m {
-  opacity: 1;
+  opacity: var(--mh);
+}
+.lpr.act .m,
+.lpr.act:hover .m {
+  opacity: 1; /* selected row */
 }
 #yb {
   left: 8px;
@@ -1567,7 +1574,7 @@ body {
 }
 #spby:has(.nz:hover) .m,
 #spby .nz.thov ~ .m {
-  opacity: 1;
+  opacity: var(--mh);
 }
 #spby canvas {
   display: block;
@@ -1675,7 +1682,7 @@ body {
 }
 .cmr:has(.nz:hover) .m,
 .cmr .nz.thov ~ .m {
-  opacity: 1;
+  opacity: var(--mh);
 }
 #cmsb {
   position: absolute;
@@ -2246,11 +2253,11 @@ body {
 }
 @media (hover: hover) {
   .ec:hover .m {
-    opacity: 1;
+    opacity: var(--mh);
   }
 }
 .ec.thov .m {
-  opacity: 1;
+  opacity: var(--mh);
 }
 #clb {
   left: 12px;
@@ -2551,7 +2558,7 @@ body {
 }
 @media (hover: hover) {
   .sfi.act:hover .m {
-    opacity: 1;
+    opacity: var(--mh);
   }
 }
 .sfsmb {
@@ -2574,6 +2581,18 @@ body {
 /* mushrooms only mark the hovered item; they never take clicks themselves */
 .m {
   pointer-events: none;
+}
+/* hovered: semi-transparent; while pressed (and on the selected item): solid. No fades. */
+:root {
+  --mh: 0.5;
+}
+:root:active {
+  --mh: 1;
+}
+#lmush,
+#cmush,
+#tmush {
+  opacity: var(--mh);
 }
 
 /* ==================== Stage Pack World (Stage World screen in pack mode, #stage.k) ==================== */
@@ -2855,7 +2874,7 @@ body {
 }
 @media (hover: hover) {
   .wsi:hover .m {
-    opacity: 1;
+    opacity: var(--mh);
   }
 }
 #wst {
@@ -2891,15 +2910,134 @@ body {
 #sob.on {
   visibility: visible;
 }
-#sob .sfi.cur .m {
-  opacity: 0.45; /* the sort in use */
-}
-@media (hover: hover) {
-  #sob .sfi.cur:hover .m {
-    opacity: 1;
-  }
+#sob .sfi.cur .m,
+#sob .sfi.cur:hover .m {
+  opacity: 1; /* the sort in use */
 }
 #socan {
   left: 8px;
   --n: url(assets/btn-back.png);
+}
+
+/* ==================== Ghost run popup ==================== */
+/* position and size are set in script.js (const GHL) */
+#ghd {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  background: rgba(0, 0, 0, 0.75);
+}
+#ghd.on {
+  display: block;
+}
+#ghd.closing {
+  background: transparent;
+  pointer-events: none;
+}
+#ghd.closing .fab {
+  visibility: hidden;
+}
+#ghc {
+  position: absolute;
+  image-rendering: pixelated;
+}
+#ghb {
+  position: absolute;
+  visibility: hidden;
+}
+#ghb.on {
+  visibility: visible;
+}
+.ghs {
+  position: absolute; /* one ghost: red frame on hover / press like the buttons */
+  cursor: pointer;
+}
+.ghi {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  opacity: 0.39; /* not selected: see-through, as in the game */
+}
+.ghs.on .ghi {
+  opacity: 1;
+}
+.ghs::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    var(--c1) left top/9px 9px no-repeat,
+    var(--c2) right top/9px 9px no-repeat,
+    var(--c3) left bottom/9px 9px no-repeat,
+    var(--c4) right bottom/9px 9px no-repeat;
+  image-rendering: pixelated;
+  pointer-events: none;
+  opacity: 0;
+}
+.ghs:hover::after {
+  opacity: 0.47;
+  animation: selg var(--t-pulse) var(--e) infinite alternate;
+}
+.ghs:active::after {
+  opacity: 1;
+  animation: selg var(--t-pulse) var(--e) infinite alternate;
+}
+/* like the buttons' pulse, but with more room around the small sprites */
+@keyframes selg {
+  from {
+    inset: -2.67px;
+  }
+  to {
+    inset: -4px;
+  }
+}
+.ghs:hover {
+  z-index: 1; /* frame above overlapping neighbours */
+}
+.ghs.solo {
+  cursor: default; /* the only ghost: nothing to toggle, just the tooltip */
+}
+.ghs.solo::after {
+  display: none;
+}
+#ghb .sfi.cur .m {
+  opacity: 1; /* the chosen VS */
+}
+.ghflag {
+  position: absolute;
+  left: 255px;
+  top: 29px;
+  width: 10.33px;
+  height: 36.33px;
+  background: url(assets/ghost-flag@3x.png) 0 0 / 100% 100% no-repeat;
+  image-rendering: pixelated;
+}
+.ghyou {
+  position: absolute; /* above your best time on the lane */
+  top: 31px;
+  width: 23.33px;
+  height: 15px;
+  background: url(assets/ghost-you@3x.png) 0 0 / 100% 100% no-repeat;
+  image-rendering: pixelated;
+}
+.ghst {
+  position: absolute;
+  left: 0;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#ghcan {
+  left: 12px;
+  --n: url(assets/btn-back.png);
+}
+#ghgo {
+  right: 12px;
+  --n: url(assets/btn-play.png);
+}
+#ghgo:disabled {
+  --n: url(assets/btn-play-disabled.png);
 }
